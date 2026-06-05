@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Finance &amp; Accounting Center | BongoERP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#cbdbf5",
+                    "surface-bright": "#f8f9ff",
+                    "secondary": "#0058be",
+                    "on-secondary-fixed": "#001a42",
+                    "surface-container-low": "#eff4ff",
+                    "primary": "#000000",
+                    "on-background": "#0b1c30",
+                    "secondary-fixed": "#d8e2ff",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#fefcff",
+                    "inverse-primary": "#bec6e0",
+                    "tertiary": "#000000",
+                    "surface-variant": "#d3e4fe",
+                    "on-tertiary-container": "#009668",
+                    "secondary-container": "#2170e4",
+                    "tertiary-container": "#002113",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "outline-variant": "#c6c6cd",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#213145",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "surface-tint": "#565e74",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed": "#131b2e",
+                    "on-surface": "#0b1c30",
+                    "inverse-on-surface": "#eaf1ff",
+                    "primary-container": "#131b2e",
+                    "primary-fixed": "#dae2fd",
+                    "on-secondary-fixed-variant": "#004395",
+                    "surface-container-highest": "#d3e4fe",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#e5eeff",
+                    "on-error": "#ffffff",
+                    "background": "#f8f9ff",
+                    "tertiary-fixed": "#6ffbbe",
+                    "on-primary-container": "#7c839b",
+                    "outline": "#76777d",
+                    "surface": "#f8f9ff",
+                    "surface-container-high": "#dce9ff",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "on-surface-variant": "#45464d",
+                    "on-tertiary-fixed": "#002113",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "24px",
+                    "container-padding-desktop": "32px",
+                    "stack-md": "16px",
+                    "container-padding-mobile": "16px",
+                    "gutter": "16px",
+                    "unit": "4px",
+                    "stack-sm": "8px"
+            },
+            "fontFamily": {
+                    "currency-display": ["Inter"],
+                    "display-lg": ["Geist"],
+                    "headline-sm": ["Geist"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Geist"],
+                    "headline-lg": ["Geist"],
+                    "label-sm": ["Geist"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Geist"]
+            },
+            "fontSize": {
+                    "currency-display": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "600"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .profit-green { color: #009668; }
+        .loss-red { color: #ba1a1a; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid #E2E8F0;
+        }
+        .sidebar-mask {
+            mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+<!-- Side Navigation Shell -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-surface-container-lowest border-r border-outline-variant z-50 flex flex-col p-4 gap-2">
+<div class="flex flex-col gap-1 mb-6 px-2">
+<span class="text-headline-lg font-headline-lg font-black text-on-surface">BongoERP</span>
+<span class="font-label-md text-label-md text-on-surface-variant opacity-70">Premium Merchant OS</span>
+</div>
+<nav class="flex-1 flex flex-col gap-1 overflow-y-auto sidebar-mask">
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">inventory</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-md text-label-md">Courier</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-md text-label-md">Marketing</span>
+</a>
+<!-- Active State: Finance -->
+<a class="flex items-center gap-3 px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg font-bold transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Finance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-label-md text-label-md">Employees</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-md text-label-md">AI Advisor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-1 border-t border-outline-variant pt-4">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Log Out</span>
+</a>
+</div>
+</aside>
+<!-- Top Navigation Shell -->
+<header class="fixed top-0 left-[280px] w-[calc(100%-280px)] h-16 bg-surface border-b border-outline-variant z-40 flex justify-between items-center px-6">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full font-body-md text-body-md focus:ring-2 focus:ring-secondary-container" placeholder="Search transactions, reports..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-surface-container-low p-2 rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<button class="hover:bg-surface-container-low p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">business_center</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a modern tech entrepreneur in a minimalist studio setting, wearing a clean charcoal blazer. The lighting is soft and directional, creating a sophisticated and trustworthy business atmosphere. The aesthetic aligns with a high-end corporate ERP interface, using a crisp, high-key background and a neutral color palette to convey efficiency and leadership." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDtOKNgsYeWRwk1IC7tUQwTdjQ7toqmpw3hft9FIbfEP3cc_tDaHvIa-4JVugvF6WE_2ggjSimgUO_U_VllXpJxR3TAgx3TKc5LjGcpY3pQqqgWddnz3TlyEJ9q3cyWfU48oA6L4yCiL1-W4viHXIqffMaTuuFzQ_FEqXhryTWnc09afckn-al7XpqjaEy5oEPe3nxGqwxfGh2_TS7qh0WRPF45oT-gJFdBgtMunOzPdzUA9QRBec9XqJ-GEQZAMMdMsoDhfYSyvux"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-[280px] pt-16 min-h-screen">
+<div class="p-8 max-w-[1600px] mx-auto space-y-8">
+<!-- Header & Export Actions -->
+<div class="flex justify-between items-end">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface">Finance Hub</h1>
+<p class="text-on-surface-variant font-body-md">Overview of your business profitability and cash performance.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant bg-white text-on-surface rounded-lg font-label-md hover:bg-surface-container-low transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+                        Monthly Profit Report
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant bg-white text-on-surface rounded-lg font-label-md hover:bg-surface-container-low transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]">account_balance_wallet</span>
+                        Tax Filing Summary
+                    </button>
+</div>
+</div>
+<!-- Bento Grid - P&L and Cash Flow -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Real-time P&L Summary (Formulaic Layout) -->
+<section class="col-span-12 lg:col-span-8 p-6 bg-white border border-outline-variant rounded-xl shadow-sm space-y-6">
+<div class="flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md">Real-time P&amp;L Statement</h2>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-3 py-1 rounded-full font-label-sm text-label-sm">Live - August 2023</span>
+</div>
+<div class="grid grid-cols-5 gap-4 items-center">
+<div class="space-y-1">
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Revenue</p>
+<p class="font-currency-display text-currency-display">৳4,250,000</p>
+</div>
+<div class="flex justify-center text-on-surface-variant opacity-30">
+<span class="material-symbols-outlined">remove</span>
+</div>
+<div class="col-span-2 p-4 bg-surface-container-low rounded-lg">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">COGS + OpEx + Ads</span>
+<span class="text-error">৳3,120,500</span>
+</div>
+<div class="w-full bg-outline-variant h-1 rounded-full overflow-hidden">
+<div class="bg-error w-[73%] h-full"></div>
+</div>
+</div>
+</div>
+<div class="flex justify-end items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant opacity-30">drag_handle</span>
+<div class="text-right">
+<p class="text-label-sm font-label-sm profit-green uppercase tracking-wider">Net Profit</p>
+<p class="font-headline-lg text-headline-lg profit-green">৳1,129,500</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-4 gap-4 pt-4 border-t border-outline-variant">
+<div class="p-3">
+<p class="text-label-sm font-label-sm text-on-surface-variant">COGS</p>
+<p class="font-headline-sm text-headline-sm">৳1,850,000</p>
+</div>
+<div class="p-3">
+<p class="text-label-sm font-label-sm text-on-surface-variant">Marketing</p>
+<p class="font-headline-sm text-headline-sm">৳420,000</p>
+</div>
+<div class="p-3">
+<p class="text-label-sm font-label-sm text-on-surface-variant">Delivery</p>
+<p class="font-headline-sm text-headline-sm">৳150,500</p>
+</div>
+<div class="p-3">
+<p class="text-label-sm font-label-sm text-on-surface-variant">OpEx</p>
+<p class="font-headline-sm text-headline-sm">৳700,000</p>
+</div>
+</div>
+</section>
+<!-- Receivables Tracking -->
+<section class="col-span-12 lg:col-span-4 p-6 bg-white border border-outline-variant rounded-xl shadow-sm flex flex-col justify-between">
+<h2 class="font-headline-md text-headline-md mb-6">Asset Liquidity</h2>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Bank Balance</p>
+<p class="text-label-sm text-on-surface-variant">4 Active Accounts</p>
+</div>
+</div>
+<p class="font-headline-sm text-headline-sm">৳2,840,000</p>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Cash in Courier</p>
+<p class="text-label-sm text-on-surface-variant">Pending Settlements</p>
+</div>
+</div>
+<p class="font-headline-sm text-headline-sm">৳845,200</p>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+<span class="material-symbols-outlined">person_search</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Customer Dues</p>
+<p class="text-label-sm text-on-surface-variant">B2B Accounts</p>
+</div>
+</div>
+<p class="font-headline-sm text-headline-sm">৳120,000</p>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant">
+<div class="flex justify-between items-center text-on-surface">
+<span class="font-label-md">Total Liquidity</span>
+<span class="font-headline-md text-headline-md">৳3,805,200</span>
+</div>
+</div>
+</section>
+<!-- Cash Flow Visualization -->
+<section class="col-span-12 lg:col-span-7 p-6 bg-white border border-outline-variant rounded-xl shadow-sm">
+<div class="flex justify-between items-center mb-8">
+<h2 class="font-headline-md text-headline-md">Cash Flow Index</h2>
+<div class="flex gap-2">
+<div class="flex items-center gap-2 text-label-sm font-label-sm">
+<span class="w-3 h-3 rounded-full bg-secondary"></span> Inflow
+                            </div>
+<div class="flex items-center gap-2 text-label-sm font-label-sm">
+<span class="w-3 h-3 rounded-full bg-outline"></span> Outflow
+                            </div>
+</div>
+</div>
+<div class="h-64 flex items-end gap-4 px-2">
+<!-- Bar Chart Simulation -->
+<div class="flex-1 flex flex-col justify-end gap-1 h-full group">
+<div class="flex gap-1 items-end h-[60%]">
+<div class="bg-secondary/40 w-full rounded-t-sm h-full hover:bg-secondary transition-colors"></div>
+<div class="bg-outline-variant w-full rounded-t-sm h-[80%] hover:bg-outline transition-colors"></div>
+</div>
+<p class="text-center text-label-sm font-label-sm mt-2 opacity-50">Mar</p>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 h-full group">
+<div class="flex gap-1 items-end h-[75%]">
+<div class="bg-secondary/40 w-full rounded-t-sm h-full hover:bg-secondary transition-colors"></div>
+<div class="bg-outline-variant w-full rounded-t-sm h-[70%] hover:bg-outline transition-colors"></div>
+</div>
+<p class="text-center text-label-sm font-label-sm mt-2 opacity-50">Apr</p>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 h-full group">
+<div class="flex gap-1 items-end h-[90%]">
+<div class="bg-secondary/40 w-full rounded-t-sm h-full hover:bg-secondary transition-colors"></div>
+<div class="bg-outline-variant w-full rounded-t-sm h-[60%] hover:bg-outline transition-colors"></div>
+</div>
+<p class="text-center text-label-sm font-label-sm mt-2 opacity-50 font-bold">May</p>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 h-full group">
+<div class="flex gap-1 items-end h-[85%]">
+<div class="bg-secondary/40 w-full rounded-t-sm h-full hover:bg-secondary transition-colors"></div>
+<div class="bg-outline-variant w-full rounded-t-sm h-[90%] hover:bg-outline transition-colors"></div>
+</div>
+<p class="text-center text-label-sm font-label-sm mt-2 opacity-50">Jun</p>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 h-full group">
+<div class="flex gap-1 items-end h-[100%]">
+<div class="bg-secondary w-full rounded-t-sm h-full"></div>
+<div class="bg-outline-variant w-full rounded-t-sm h-[70%] hover:bg-outline transition-colors"></div>
+</div>
+<p class="text-center text-label-sm font-label-sm mt-2 text-secondary font-bold">Jul</p>
+</div>
+</div>
+</section>
+<!-- Expense Breakdown (Donut Simulation) -->
+<section class="col-span-12 lg:col-span-5 p-6 bg-white border border-outline-variant rounded-xl shadow-sm">
+<h2 class="font-headline-md text-headline-md mb-8">Expense Distribution</h2>
+<div class="flex items-center gap-8">
+<div class="relative w-40 h-40">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 36 36">
+<circle cx="18" cy="18" fill="transparent" r="16" stroke="#E2E8F0" stroke-width="4"></circle>
+<circle cx="18" cy="18" fill="transparent" r="16" stroke="#0F172A" stroke-dasharray="40 100" stroke-width="4"></circle>
+<circle cx="18" cy="18" fill="transparent" r="16" stroke="#2170e4" stroke-dasharray="25 100" stroke-dashoffset="-40" stroke-width="4"></circle>
+<circle cx="18" cy="18" fill="transparent" r="16" stroke="#009668" stroke-dasharray="20 100" stroke-dashoffset="-65" stroke-width="4"></circle>
+<circle cx="18" cy="18" fill="transparent" r="16" stroke="#ba1a1a" stroke-dasharray="15 100" stroke-dashoffset="-85" stroke-width="4"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-label-sm text-on-surface-variant">Total</span>
+<span class="font-headline-sm">৳3.1M</span>
+</div>
+</div>
+<div class="flex-1 space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-label-md">Salary</span>
+</div>
+<span class="text-label-md font-bold">40%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="text-label-md">Procurement</span>
+</div>
+<span class="text-label-md font-bold">25%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full profit-green bg-[#009668]"></span>
+<span class="text-label-md">Marketing</span>
+</div>
+<span class="text-label-md font-bold">20%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-error"></span>
+<span class="text-label-md">Rent/Misc</span>
+</div>
+<span class="text-label-md font-bold">15%</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Recent Transactions List -->
+<section class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+<div class="p-6 flex justify-between items-center border-b border-outline-variant">
+<h2 class="font-headline-md text-headline-md">Recent Transactions</h2>
+<div class="flex gap-2">
+<button class="px-3 py-1 text-label-md bg-surface-container-low border border-outline-variant rounded hover:bg-surface-container-high transition-colors">All Types</button>
+<button class="px-3 py-1 text-label-md bg-white border border-outline-variant rounded hover:bg-surface-container-low transition-colors">Income Only</button>
+<button class="px-3 py-1 text-label-md bg-white border border-outline-variant rounded hover:bg-surface-container-low transition-colors">Expenses Only</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-6 py-3 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Date</th>
+<th class="px-6 py-3 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Description</th>
+<th class="px-6 py-3 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Category</th>
+<th class="px-6 py-3 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">Amount</th>
+<th class="px-6 py-3 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="px-6 py-3 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-body-sm text-body-sm">Aug 24, 2023</td>
+<td class="px-6 py-4">
+<p class="font-body-md text-body-md text-on-surface">Warehouse Rent - Sector 7</p>
+<p class="text-label-sm text-on-surface-variant">TXN-009823</p>
+</td>
+<td class="px-6 py-4"><span class="bg-surface-container-high text-on-surface-variant px-2 py-0.5 rounded text-label-sm">Operating Expense</span></td>
+<td class="px-6 py-4 text-right font-headline-sm loss-red">- ৳125,000</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-1.5 text-label-sm font-label-sm text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Settled
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 material-symbols-outlined text-on-surface-variant hover:text-on-surface transition-all">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-body-sm text-body-sm">Aug 23, 2023</td>
+<td class="px-6 py-4">
+<p class="font-body-md text-body-md text-on-surface">Bulk Order Settlement - RedX Courier</p>
+<p class="text-label-sm text-on-surface-variant">TXN-009822</p>
+</td>
+<td class="px-6 py-4"><span class="bg-surface-container-high text-on-surface-variant px-2 py-0.5 rounded text-label-sm">Sales Income</span></td>
+<td class="px-6 py-4 text-right font-headline-sm profit-green">+ ৳450,200</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-1.5 text-label-sm font-label-sm text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Settled
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 material-symbols-outlined text-on-surface-variant hover:text-on-surface transition-all">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-body-sm text-body-sm">Aug 22, 2023</td>
+<td class="px-6 py-4">
+<p class="font-body-md text-body-md text-on-surface">Facebook Ad Spend - Monsoon Sale</p>
+<p class="text-label-sm text-on-surface-variant">TXN-009821</p>
+</td>
+<td class="px-6 py-4"><span class="bg-surface-container-high text-on-surface-variant px-2 py-0.5 rounded text-label-sm">Marketing</span></td>
+<td class="px-6 py-4 text-right font-headline-sm loss-red">- ৳52,400</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-1.5 text-label-sm font-label-sm text-orange-600">
+<span class="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"></span> Processing
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 material-symbols-outlined text-on-surface-variant hover:text-on-surface transition-all">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-body-sm text-body-sm">Aug 21, 2023</td>
+<td class="px-6 py-4">
+<p class="font-body-md text-body-md text-on-surface">Office Utility Bills</p>
+<p class="text-label-sm text-on-surface-variant">TXN-009820</p>
+</td>
+<td class="px-6 py-4"><span class="bg-surface-container-high text-on-surface-variant px-2 py-0.5 rounded text-label-sm">Utilities</span></td>
+<td class="px-6 py-4 text-right font-headline-sm loss-red">- ৳18,300</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-1.5 text-label-sm font-label-sm text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Settled
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 material-symbols-outlined text-on-surface-variant hover:text-on-surface transition-all">more_vert</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-surface-container-lowest flex justify-center border-t border-outline-variant">
+<button class="text-secondary font-label-md hover:underline decoration-2 underline-offset-4">View All Transactions</button>
+</div>
+</section>
+</div>
+</main>
+<!-- Contextual FAB (Hidden on Finance detailed screen, but logic implies it could be used for 'Quick Add Transaction') -->
+<!-- Suppression logic: Since this is a specialized Finance screen, we omit the generic FAB to prioritize focused analytics actions. -->
+<script>
+        // Micro-interactions for table rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.style.transform = 'translateX(4px)';
+                row.style.transition = 'transform 0.2s ease-out';
+            });
+            row.addEventListener('mouseleave', () => {
+                row.style.transform = 'translateX(0)';
+            });
+        });
+
+        // Simple animation for the "Processing" status
+        const pulsingDot = document.querySelector('.animate-pulse');
+        if (pulsingDot) {
+            setInterval(() => {
+                pulsingDot.style.opacity = pulsingDot.style.opacity === '0.4' ? '1' : '0.4';
+            }, 800);
+        }
+    </script>
+</body></html>

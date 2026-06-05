@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BongoERP | Marketing Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#cbdbf5",
+                        "surface-bright": "#f8f9ff",
+                        "secondary": "#0058be",
+                        "on-secondary-fixed": "#001a42",
+                        "surface-container-low": "#eff4ff",
+                        "primary": "#000000",
+                        "on-background": "#0b1c30",
+                        "secondary-fixed": "#d8e2ff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#fefcff",
+                        "inverse-primary": "#bec6e0",
+                        "tertiary": "#000000",
+                        "surface-variant": "#d3e4fe",
+                        "on-tertiary-container": "#009668",
+                        "secondary-container": "#2170e4",
+                        "tertiary-container": "#002113",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "outline-variant": "#c6c6cd",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "surface-tint": "#565e74",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#131b2e",
+                        "on-surface": "#0b1c30",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-container": "#131b2e",
+                        "primary-fixed": "#dae2fd",
+                        "on-secondary-fixed-variant": "#004395",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "on-error": "#ffffff",
+                        "background": "#f8f9ff",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-primary-container": "#7c839b",
+                        "outline": "#76777d",
+                        "surface": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-surface-variant": "#45464d",
+                        "on-tertiary-fixed": "#002113",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "24px",
+                        "container-padding-desktop": "32px",
+                        "stack-md": "16px",
+                        "container-padding-mobile": "16px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "stack-sm": "8px"
+                    },
+                    "fontFamily": {
+                        "currency-display": ["Inter"],
+                        "display-lg": ["Geist"],
+                        "headline-sm": ["Geist"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "label-sm": ["Geist"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "currency-display": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "600"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline-lg, .font-headline-md, .font-headline-sm, .font-label-md, .font-label-sm { font-family: 'Geist', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar (Execution from JSON) -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-surface-container-lowest border-r border-outline-variant shadow-sm flex flex-col p-4 gap-2 z-50">
+<div class="mb-6 px-2">
+<h1 class="text-headline-lg font-headline-lg font-black text-on-surface">BongoERP</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Premium Merchant OS</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98] font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98] font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">shopping_cart</span> Orders
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98] font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">group</span> Customers
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98] font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">inventory_2</span> Inventory
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98] font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">inventory</span> Products
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg font-bold transition-all active:scale-[0.98] font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">campaign</span> Marketing
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98] font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">payments</span> Finance
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98] font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">auto_awesome</span> AI Advisor
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98] font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+            </a>
+</nav>
+<button class="mt-4 w-full bg-primary text-on-primary py-3 rounded-xl font-headline-sm text-headline-sm active:scale-95 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span> Add Order
+        </button>
+<div class="mt-auto border-t border-outline-variant pt-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">help</span> Help Center
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">logout</span> Log Out
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[280px] min-h-screen">
+<!-- TopNavBar (Execution from JSON) -->
+<header class="sticky top-0 z-40 bg-surface border-b border-outline-variant h-16 flex justify-between items-center px-6 w-full">
+<div class="flex items-center gap-4 w-1/3">
+<div class="relative w-full max-w-sm">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full font-body-md text-body-md focus:ring-2 focus:ring-secondary-container" placeholder="Search analytics..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-surface-container-low rounded-full p-2 transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<button class="hover:bg-surface-container-low rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined">business_center</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant ml-2">
+<img alt="User Profile" data-alt="A professional close-up portrait of a high-level marketing executive with a confident expression. The lighting is soft and cinematic, highlighting sophisticated features against a blurred, modern office background. The overall aesthetic is clean, premium, and trustworthy, reflecting the brand identity of BongoERP." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDayWuIhSTd7dUxN3dxeZCfbfFOtv4h0V7DES9ct36_PfZmKML51iYOQhnfclbmxBZgbnLzTSJiVOB8wEhenjsBWvMk0xzD1rQM11gLonM6qVA3MZOhoNEE-FLpSMuWVLeMnNJElYfl3U-Oy0Ew2bfLWKEdntWzJSScPvLeyrXZVe_syqrvrkrChpx6UR93KDuz3KOiCofV7btcE5QyLjMOv9jIF8Fgxm_3_Ukj9ch85HIYN10WBnbjTw8oH752ccGbPNGEzVnLyQGa"/>
+</div>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<div class="p-8 max-w-[1600px] mx-auto space-y-8">
+<!-- Header & Date Picker -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Marketing Performance</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Real-time cross-platform advertising insights.</p>
+</div>
+<div class="flex gap-3">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-2 flex items-center gap-2 cursor-pointer hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span class="font-label-md text-label-md">Last 30 Days</span>
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md flex items-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">download</span> Export Report
+                    </button>
+</div>
+</div>
+<!-- AI Insight Banner (Bento Style) -->
+<div class="bg-primary-container text-on-primary-container p-6 rounded-2xl flex items-center gap-6 border border-outline shadow-sm">
+<div class="bg-on-tertiary-container text-tertiary-fixed rounded-full p-3 flex items-center justify-center">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="flex-1">
+<h4 class="font-headline-sm text-headline-sm text-surface-bright mb-1">AI Marketing Insight</h4>
+<p class="font-body-md text-body-md text-on-primary-container">The <span class="font-bold text-surface-bright">"Summer Collection"</span> campaign on Facebook has the lowest CPA (৳85). Increase budget by 20% to capture weekend traffic.</p>
+</div>
+<button class="bg-surface-container-lowest text-primary px-6 py-2.5 rounded-xl font-label-md text-label-md hover:bg-white transition-colors">Apply Recommendation</button>
+</div>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+<!-- Spend -->
+<div class="bg-surface-container-lowest border border-outline-variant p-5 rounded-2xl shadow-sm">
+<p class="font-label-md text-label-md text-on-surface-variant mb-2">Total Spend</p>
+<h3 class="font-currency-display text-currency-display text-primary">৳425,000</h3>
+<div class="mt-3 flex items-center gap-1 text-[#009668]">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span class="font-label-sm text-label-sm">12% vs last month</span>
+</div>
+</div>
+<!-- Reach -->
+<div class="bg-surface-container-lowest border border-outline-variant p-5 rounded-2xl shadow-sm">
+<p class="font-label-md text-label-md text-on-surface-variant mb-2">Total Reach</p>
+<h3 class="font-currency-display text-currency-display text-primary">1.2M</h3>
+<div class="mt-3 flex items-center gap-1 text-[#009668]">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span class="font-label-sm text-label-sm">5.4% vs last month</span>
+</div>
+</div>
+<!-- Orders -->
+<div class="bg-surface-container-lowest border border-outline-variant p-5 rounded-2xl shadow-sm">
+<p class="font-label-md text-label-md text-on-surface-variant mb-2">Orders</p>
+<h3 class="font-currency-display text-currency-display text-primary">3,842</h3>
+<div class="mt-3 flex items-center gap-1 text-[#009668]">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span class="font-label-sm text-label-sm">8.1% vs last month</span>
+</div>
+</div>
+<!-- Revenue -->
+<div class="bg-surface-container-lowest border border-outline-variant p-5 rounded-2xl shadow-sm">
+<p class="font-label-md text-label-md text-on-surface-variant mb-2">Revenue</p>
+<h3 class="font-currency-display text-currency-display text-primary">৳1.84M</h3>
+<div class="mt-3 flex items-center gap-1 text-[#009668]">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span class="font-label-sm text-label-sm">15.3% vs last month</span>
+</div>
+</div>
+<!-- ROAS -->
+<div class="bg-primary text-on-primary border border-primary p-5 rounded-2xl shadow-lg">
+<p class="font-label-md text-label-md text-on-primary-container mb-2">Overall ROAS</p>
+<h3 class="font-currency-display text-currency-display">4.33x</h3>
+<div class="mt-3 flex items-center gap-1 text-[#4edea3]">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span class="font-label-sm text-label-sm">0.4x vs last month</span>
+</div>
+</div>
+</div>
+<!-- Main Analytics Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Chart Area (2/3) -->
+<div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl shadow-sm min-h-[400px] flex flex-col">
+<div class="flex justify-between items-center mb-8">
+<h4 class="font-headline-md text-headline-md text-primary">ROAS Trend Chart</h4>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Marketing Spend</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Revenue</span>
+</div>
+</div>
+</div>
+<div class="flex-1 relative">
+<!-- Simplified Visualization Placeholder -->
+<div class="absolute inset-0 flex items-end justify-between px-2 gap-2 h-full">
+<!-- Visualizing bars or waves -->
+<div class="w-full h-[60%] bg-surface-container relative rounded-t-lg group">
+<div class="absolute bottom-0 w-full bg-secondary opacity-30 rounded-t-lg transition-all" style="height: 80%"></div>
+<div class="absolute bottom-0 w-full bg-primary opacity-70 rounded-t-lg transition-all" style="height: 40%"></div>
+</div>
+<div class="w-full h-[65%] bg-surface-container relative rounded-t-lg">
+<div class="absolute bottom-0 w-full bg-secondary opacity-30 rounded-t-lg" style="height: 70%"></div>
+<div class="absolute bottom-0 w-full bg-primary opacity-70 rounded-t-lg" style="height: 35%"></div>
+</div>
+<div class="w-full h-[70%] bg-surface-container relative rounded-t-lg">
+<div class="absolute bottom-0 w-full bg-secondary opacity-30 rounded-t-lg" style="height: 90%"></div>
+<div class="absolute bottom-0 w-full bg-primary opacity-70 rounded-t-lg" style="height: 45%"></div>
+</div>
+<div class="w-full h-[60%] bg-surface-container relative rounded-t-lg">
+<div class="absolute bottom-0 w-full bg-secondary opacity-30 rounded-t-lg" style="height: 75%"></div>
+<div class="absolute bottom-0 w-full bg-primary opacity-70 rounded-t-lg" style="height: 30%"></div>
+</div>
+<div class="w-full h-[85%] bg-surface-container relative rounded-t-lg">
+<div class="absolute bottom-0 w-full bg-secondary opacity-30 rounded-t-lg" style="height: 85%"></div>
+<div class="absolute bottom-0 w-full bg-primary opacity-70 rounded-t-lg" style="height: 55%"></div>
+</div>
+<div class="w-full h-[75%] bg-surface-container relative rounded-t-lg">
+<div class="absolute bottom-0 w-full bg-secondary opacity-30 rounded-t-lg" style="height: 65%"></div>
+<div class="absolute bottom-0 w-full bg-primary opacity-70 rounded-t-lg" style="height: 40%"></div>
+</div>
+<div class="w-full h-[90%] bg-surface-container relative rounded-t-lg">
+<div class="absolute bottom-0 w-full bg-secondary opacity-30 rounded-t-lg" style="height: 95%"></div>
+<div class="absolute bottom-0 w-full bg-primary opacity-70 rounded-t-lg" style="height: 60%"></div>
+</div>
+</div>
+</div>
+<div class="flex justify-between mt-4 px-2 font-label-sm text-label-sm text-on-surface-variant">
+<span>W1</span><span>W2</span><span>W3</span><span>W4</span>
+</div>
+</div>
+<!-- Platform Comparison (1/3) -->
+<div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl shadow-sm flex flex-col">
+<h4 class="font-headline-md text-headline-md text-primary mb-6">Multi-Platform Share</h4>
+<div class="space-y-6">
+<!-- Facebook -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">face_nod</span>
+<span class="font-label-md text-label-md">Facebook Ads</span>
+</div>
+<span class="font-label-md text-label-md font-bold">42%</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[42%] rounded-full"></div>
+</div>
+</div>
+<!-- Instagram -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">photo_camera</span>
+<span class="font-label-md text-label-md">Instagram</span>
+</div>
+<span class="font-label-md text-label-md font-bold">28%</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[28%] rounded-full"></div>
+</div>
+</div>
+<!-- Google -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">search</span>
+<span class="font-label-md text-label-md">Google Search</span>
+</div>
+<span class="font-label-md text-label-md font-bold">18%</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[18%] rounded-full"></div>
+</div>
+</div>
+<!-- TikTok -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">music_note</span>
+<span class="font-label-md text-label-md">TikTok Ads</span>
+</div>
+<span class="font-label-md text-label-md font-bold">12%</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[12%] rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-6">
+<div class="bg-surface-container-low p-4 rounded-xl flex items-center justify-between border border-outline-variant">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Best ROAS Platform</p>
+<p class="font-headline-sm text-headline-sm text-primary">Facebook Ads (4.8x)</p>
+</div>
+<span class="material-symbols-outlined text-[#009668] text-[32px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Campaign Performance Table -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-sm overflow-hidden">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<h4 class="font-headline-md text-headline-md text-primary">Campaign Performance</h4>
+<button class="text-on-surface-variant hover:text-primary font-label-md text-label-md flex items-center gap-1 transition-colors">
+                        View all <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-[#F9FAFB] border-b border-outline-variant">
+<tr>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Campaign Name</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Platform</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Budget</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Spend</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">CPA</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">ROAS</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-bold text-primary">Summer Collection 2024</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">ID: SC-00451</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 font-body-md text-body-md">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">face_nod</span>
+                                        Facebook
+                                    </div>
+</td>
+<td class="px-6 py-4 font-body-md text-body-md">৳150,000</td>
+<td class="px-6 py-4 font-body-md text-body-md">৳124,500</td>
+<td class="px-6 py-4 font-body-md text-body-md">৳85.00</td>
+<td class="px-6 py-4 font-body-md text-body-md font-bold text-[#009668]">4.82x</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#ecfdf5] text-[#047857]">Active</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-bold text-primary">Eid Sale Push</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">ID: EP-00912</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 font-body-md text-body-md">
+<span class="material-symbols-outlined text-[18px]">photo_camera</span>
+                                        Instagram
+                                    </div>
+</td>
+<td class="px-6 py-4 font-body-md text-body-md">৳200,000</td>
+<td class="px-6 py-4 font-body-md text-body-md">৳195,000</td>
+<td class="px-6 py-4 font-body-md text-body-md">৳112.50</td>
+<td class="px-6 py-4 font-body-md text-body-md font-bold text-[#009668]">3.91x</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#fff7ed] text-[#c2410c]">Paused</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-bold text-primary">Brand Awareness Video</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">ID: BA-00321</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 font-body-md text-body-md">
+<span class="material-symbols-outlined text-[18px]">music_note</span>
+                                        TikTok
+                                    </div>
+</td>
+<td class="px-6 py-4 font-body-md text-body-md">৳80,000</td>
+<td class="px-6 py-4 font-body-md text-body-md">৳45,200</td>
+<td class="px-6 py-4 font-body-md text-body-md">৳42.00</td>
+<td class="px-6 py-4 font-body-md text-body-md font-bold text-[#009668]">2.15x</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#ecfdf5] text-[#047857]">Active</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-bold text-primary">Google Search - High Intent</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">ID: GS-00882</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 font-body-md text-body-md">
+<span class="material-symbols-outlined text-[18px]">search</span>
+                                        Google
+                                    </div>
+</td>
+<td class="px-6 py-4 font-body-md text-body-md">৳100,000</td>
+<td class="px-6 py-4 font-body-md text-body-md">৳60,300</td>
+<td class="px-6 py-4 font-body-md text-body-md">৳210.00</td>
+<td class="px-6 py-4 font-body-md text-body-md font-bold text-[#009668]">5.12x</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#ecfdf5] text-[#047857]">Active</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Bottom Floating Action Button (Suppressed on analytics if not primary action, but let's keep it for context) -->
+<div class="flex justify-end pt-4 pb-8">
+<button class="bg-primary text-on-primary h-14 w-14 rounded-full shadow-xl flex items-center justify-center active:scale-90 transition-transform group relative">
+<span class="material-symbols-outlined text-[28px]">add_chart</span>
+<span class="absolute right-16 bg-on-surface text-surface whitespace-nowrap px-3 py-1 rounded text-label-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">New Campaign</span>
+</button>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interactions and subtle hover effects
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.style.transform = 'translateX(4px)';
+                row.style.transition = 'transform 0.2s ease-out';
+            });
+            row.addEventListener('mouseleave', () => {
+                row.style.transform = 'translateX(0)';
+            });
+        });
+
+        // Simulating loading state for the chart bars
+        window.addEventListener('load', () => {
+            const bars = document.querySelectorAll('.bg-secondary, .bg-primary');
+            bars.forEach((bar, index) => {
+                const height = bar.style.height;
+                bar.style.height = '0';
+                setTimeout(() => {
+                    bar.style.transition = 'height 1s cubic-bezier(0.17, 0.67, 0.83, 0.67)';
+                    bar.style.height = height;
+                }, index * 50);
+            });
+        });
+    </script>
+</body></html>

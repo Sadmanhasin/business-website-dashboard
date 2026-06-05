@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BongoERP | Product Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "error-container": "#ffdad6",
+                "surface-dim": "#cbdbf5",
+                "surface-bright": "#f8f9ff",
+                "secondary": "#0058be",
+                "on-secondary-fixed": "#001a42",
+                "surface-container-low": "#eff4ff",
+                "primary": "#000000",
+                "on-background": "#0b1c30",
+                "secondary-fixed": "#d8e2ff",
+                "primary-fixed-dim": "#bec6e0",
+                "on-tertiary": "#ffffff",
+                "on-secondary-container": "#fefcff",
+                "inverse-primary": "#bec6e0",
+                "tertiary": "#000000",
+                "surface-variant": "#d3e4fe",
+                "on-tertiary-container": "#009668",
+                "secondary-container": "#2170e4",
+                "tertiary-container": "#002113",
+                "on-primary-fixed-variant": "#3f465c",
+                "outline-variant": "#c6c6cd",
+                "on-primary": "#ffffff",
+                "inverse-surface": "#213145",
+                "on-secondary": "#ffffff",
+                "tertiary-fixed-dim": "#4edea3",
+                "surface-tint": "#565e74",
+                "secondary-fixed-dim": "#adc6ff",
+                "on-error-container": "#93000a",
+                "on-primary-fixed": "#131b2e",
+                "on-surface": "#0b1c30",
+                "inverse-on-surface": "#eaf1ff",
+                "primary-container": "#131b2e",
+                "primary-fixed": "#dae2fd",
+                "on-secondary-fixed-variant": "#004395",
+                "surface-container-highest": "#d3e4fe",
+                "surface-container-lowest": "#ffffff",
+                "surface-container": "#e5eeff",
+                "on-error": "#ffffff",
+                "background": "#f8f9ff",
+                "tertiary-fixed": "#6ffbbe",
+                "on-primary-container": "#7c839b",
+                "outline": "#76777d",
+                "surface": "#f8f9ff",
+                "surface-container-high": "#dce9ff",
+                "on-tertiary-fixed-variant": "#005236",
+                "on-surface-variant": "#45464d",
+                "on-tertiary-fixed": "#002113",
+                "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "stack-lg": "24px",
+                "container-padding-desktop": "32px",
+                "stack-md": "16px",
+                "container-padding-mobile": "16px",
+                "gutter": "16px",
+                "unit": "4px",
+                "stack-sm": "8px"
+            },
+            "fontFamily": {
+                "currency-display": ["Inter"],
+                "display-lg": ["Geist"],
+                "headline-sm": ["Geist"],
+                "body-lg": ["Inter"],
+                "headline-md": ["Geist"],
+                "headline-lg": ["Geist"],
+                "label-sm": ["Geist"],
+                "body-sm": ["Inter"],
+                "body-md": ["Inter"],
+                "label-md": ["Geist"]
+            },
+            "fontSize": {
+                "currency-display": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "600"}],
+                "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Geist', sans-serif; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-surface-container-lowest border-r border-outline-variant flex flex-col p-4 gap-2 z-50">
+<div class="flex flex-col gap-1 mb-6 px-2">
+<span class="text-headline-lg font-headline-lg font-black text-on-surface">BongoERP</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Premium Merchant OS</span>
+</div>
+<nav class="flex flex-col gap-1 flex-grow overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg font-bold" href="#">
+<span class="material-symbols-outlined">inventory</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-md text-label-md">Courier</span>
+</a>
+<div class="my-2 border-t border-outline-variant opacity-50"></div>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-md text-label-md">Marketing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Finance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-md text-label-md">AI Advisor</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-1 border-t border-outline-variant pt-4">
+<button class="w-full bg-primary text-on-primary py-3 rounded-xl font-headline-sm text-headline-sm mb-4 active:scale-95 transition-transform">
+                Add Order
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Log Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-[280px] flex-grow flex flex-col h-screen overflow-hidden">
+<!-- Top Navigation -->
+<header class="flex justify-between items-center h-16 px-6 w-full sticky top-0 z-40 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-4 flex-grow max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full font-body-md text-body-md focus:ring-2 focus:ring-secondary-container" placeholder="Search products, SKUs, or categories..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-surface-container-low rounded-full p-2 text-on-surface-variant transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="hover:bg-surface-container-low rounded-full p-2 text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">business_center</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary-fixed overflow-hidden border border-outline-variant">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfMv8-pvsNnIh2R0Y0i_ccfPh6rqsi2-KuINjOtt4gW2gtbUT7Qy6TViLAWm6VMF1SwsrV3WnQkEitAC3JdMLGEVbftP29z4ZVKJNSx6e0nnFCu32dTb4ZCbX8n142x9s_1K5GQ-AU7p6c-2iN6vPYzunNw8O6b7mfindhMf-itNdqTmr2fHdO88kWfZ8dj5OarhfkcE_OoX-J7-pKyCAruAPUjqNdzlv9WLSB28BX7u5xILWESDIQbCVscOR4YuRiGFxenejqLZ97"/>
+</div>
+</div>
+</header>
+<!-- Product Workspace -->
+<div class="flex-grow overflow-y-auto p-8 space-y-8">
+<!-- Header & Actions -->
+<div class="flex justify-between items-end">
+<div>
+<h1 class="font-headline-lg text-display-lg text-primary">Products</h1>
+<p class="text-on-surface-variant font-body-md">Manage 1,284 inventory items across 3 channels.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">sync</span> Sync Shopify
+                    </button>
+<button class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">file_download</span> Export CSV
+                    </button>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-6 py-2 rounded-lg font-headline-sm text-headline-sm active:scale-95 transition-transform shadow-sm">
+<span class="material-symbols-outlined">add</span> Create Product
+                    </button>
+</div>
+</div>
+<!-- Filters -->
+<div class="bg-surface-container-lowest p-4 rounded-2xl border border-outline-variant flex items-center gap-6 shadow-sm">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+<span class="font-label-md text-label-md">Filters</span>
+</div>
+<div class="flex gap-2">
+<select class="bg-surface border border-outline-variant rounded-lg px-3 py-1.5 font-label-md text-label-md focus:ring-1 focus:ring-secondary">
+<option>All Categories</option>
+<option>Clothing</option>
+<option>Gadgets</option>
+<option>Cosmetics</option>
+</select>
+<select class="bg-surface border border-outline-variant rounded-lg px-3 py-1.5 font-label-md text-label-md focus:ring-1 focus:ring-secondary">
+<option>Status: Active</option>
+<option>Status: Draft</option>
+<option>Status: Out of Stock</option>
+</select>
+<select class="bg-surface border border-outline-variant rounded-lg px-3 py-1.5 font-label-md text-label-md focus:ring-1 focus:ring-secondary">
+<option>Profitability: All</option>
+<option>High Margin</option>
+<option>Volume Driver</option>
+</select>
+</div>
+<div class="ml-auto flex items-center gap-3">
+<span class="text-on-surface-variant font-label-md">View:</span>
+<div class="flex border border-outline-variant rounded-lg overflow-hidden">
+<button class="p-1.5 bg-secondary-container text-on-secondary-container"><span class="material-symbols-outlined text-[20px]">grid_view</span></button>
+<button class="p-1.5 hover:bg-surface-container-low"><span class="material-symbols-outlined text-[20px]">list</span></button>
+</div>
+</div>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all group cursor-pointer" onclick="openEditPanel('Premium Silk Panjabi')">
+<div class="h-48 bg-surface-container-low relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A luxurious close-up shot of a traditional Bangladeshi silk panjabi with intricate embroidery details. The garment is displayed against a minimal, clean off-white background with soft, diffused studio lighting. The color palette is composed of rich blacks, muted golds, and deep charcoal, creating a sophisticated and premium look for a high-end fashion merchant." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAESPyvrUrK5WTL6UH83Y2OmJq8QChUKsNLdypHuHxKyMeXshsyrIBFeKnXAZOL-fwoFW5zsgw_olIP2HVrZm13WkVj331fOTZtr-_6KNoo7tIeLIPBeMLKjJma2nJp0bPqR4GY17YDzdzKqCuxmd562HVvKUAep8O3uneax9u_Yk4occ6YYc4B4vftVdg6dfuUzaBcGlZmpwJZHX4vCO1MdQVnfEqegnLMDWjdzKLpy8VLWjrcV97gYAY6RK7KSPXGnYt67Wqi9r2"/>
+<div class="absolute top-3 right-3 flex flex-col gap-2">
+<span class="bg-on-tertiary-container text-tertiary-fixed px-2 py-1 rounded-md font-label-sm text-label-sm">Active</span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded-md font-label-sm text-label-sm">High Margin</span>
+</div>
+</div>
+<div class="p-4 space-y-4">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Premium Silk Panjabi</h3>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+<p class="text-on-surface-variant font-body-sm">SKU: PAN-2024-001</p>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-2 border-t border-outline-variant border-dashed">
+<div>
+<p class="text-on-surface-variant font-label-sm uppercase">Base Price</p>
+<p class="font-currency-display text-headline-sm text-primary">৳4,500</p>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-sm uppercase">Margin</p>
+<p class="font-headline-sm text-headline-sm text-on-tertiary-container">42%</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-3 rounded-xl space-y-2">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">face_nod</span> Facebook</span>
+<span class="font-label-md text-on-surface font-bold">৳4,800</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">language</span> Website</span>
+<span class="font-label-md text-on-surface font-bold">৳4,500</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">person_pin_circle</span> In-person</span>
+<span class="font-label-md text-on-surface font-bold">৳5,200</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-label-sm">Stock Level</span>
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-outline-variant rounded-full overflow-hidden">
+<div class="w-3/4 h-full bg-secondary"></div>
+</div>
+<span class="font-label-md text-on-surface">142 units</span>
+</div>
+</div>
+<div class="text-right">
+<span class="text-on-surface-variant font-label-sm">ROI</span>
+<p class="font-headline-sm text-headline-sm text-secondary">2.8x</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all group cursor-pointer" onclick="openEditPanel('Nordic Smart Watch')">
+<div class="h-48 bg-surface-container-low relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sleek, modern smart watch with a silver metallic band and a high-resolution circular display showing health metrics. The watch is positioned on a marble surface with soft afternoon light creating subtle shadows. The aesthetic is extremely minimalist and tech-focused, utilizing a clean white and silver color scheme that aligns with a high-performance tech merchant branding." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi6sD-JM0k8djcxLqYF1R-WqXVpBdVXnMpJhtbj4_M9tvK7ZL-tVjzwhHrtXLlR1KZo-KJK7iY6ugl5DmZwrizQuGkRDOkP5bmx_iQ3ylqHPHm2pj9Rx791DRH-h-aXo9HJI-vIQExwHMPDh206ZKObCaCv5597TB-ijGsDz_UiMkt80wklyTHbJBlyPiy1DhOrR3roHspyqjkhBhcMSc_S3YcxSqTLIJVL0IedN3STbuvk261MBwgw37P1IsHFGq2xiXm-aUw6FwT"/>
+<div class="absolute top-3 right-3 flex flex-col gap-2">
+<span class="bg-error-container text-on-error-container px-2 py-1 rounded-md font-label-sm text-label-sm">Low Stock</span>
+<span class="bg-surface-container-highest text-on-surface px-2 py-1 rounded-md font-label-sm text-label-sm">Volume Driver</span>
+</div>
+</div>
+<div class="p-4 space-y-4">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Nordic Smart Watch</h3>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+<p class="text-on-surface-variant font-body-sm">SKU: GAD-2024-882</p>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-2 border-t border-outline-variant border-dashed">
+<div>
+<p class="text-on-surface-variant font-label-sm uppercase">Base Price</p>
+<p class="font-currency-display text-headline-sm text-primary">৳8,900</p>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-sm uppercase">Margin</p>
+<p class="font-headline-sm text-headline-sm text-on-tertiary-container">18%</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-3 rounded-xl space-y-2">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">face_nod</span> Facebook</span>
+<span class="font-label-md text-on-surface font-bold">৳9,200</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">language</span> Website</span>
+<span class="font-label-md text-on-surface font-bold">৳8,900</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">person_pin_circle</span> In-person</span>
+<span class="font-label-md text-on-surface font-bold">৳9,500</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-label-sm">Stock Level</span>
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-outline-variant rounded-full overflow-hidden">
+<div class="w-1/5 h-full bg-error"></div>
+</div>
+<span class="font-label-md text-on-surface">12 units</span>
+</div>
+</div>
+<div class="text-right">
+<span class="text-on-surface-variant font-label-sm">ROI</span>
+<p class="font-headline-sm text-headline-sm text-secondary">1.4x</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all group cursor-pointer" onclick="openEditPanel('Rose Glow Serum')">
+<div class="h-48 bg-surface-container-low relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A minimalist presentation of a premium facial serum in a frosted glass bottle with a minimalist label. The bottle is set against a soft, pastel-toned background with architectural shadows. The lighting is bright and clean, typical of high-end cosmetic marketing. The color palette features whites, soft creams, and a hint of rose pink, projecting an image of clinical efficiency and luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVnd0dhDIRgUWwpfvPYRRv4Ttx0mDU3HBxWWNUUCUHsx-vvw7f-A8dnwlfCcpev2wIJc-Ruv7f8i0M1HgGRuczDxMiCpwjYLK_y039NIxHOzkKWFvNGdHQ1z-H8oZBZj0pBK9mphb-puzk0IddIGG-PnHFoTMGDGxfrhoZm7cweLCKrMfVxuHLLlL7EDJvAPi1wf7Dzhdu_x7CLxydmGa2OnevIm_ghn_667LY0-WZYI-G_aNyZ4tDyokw7Sm7DBqMK2OsN8kCoqaU"/>
+<div class="absolute top-3 right-3 flex flex-col gap-2">
+<span class="bg-on-tertiary-container text-tertiary-fixed px-2 py-1 rounded-md font-label-sm text-label-sm">Active</span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded-md font-label-sm text-label-sm">High Margin</span>
+</div>
+</div>
+<div class="p-4 space-y-4">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Rose Glow Serum</h3>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+<p class="text-on-surface-variant font-body-sm">SKU: COS-2024-441</p>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-2 border-t border-outline-variant border-dashed">
+<div>
+<p class="text-on-surface-variant font-label-sm uppercase">Base Price</p>
+<p class="font-currency-display text-headline-sm text-primary">৳1,250</p>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-sm uppercase">Margin</p>
+<p class="font-headline-sm text-headline-sm text-on-tertiary-container">55%</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-3 rounded-xl space-y-2">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">face_nod</span> Facebook</span>
+<span class="font-label-md text-on-surface font-bold">৳1,400</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">language</span> Website</span>
+<span class="font-label-md text-on-surface font-bold">৳1,250</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">person_pin_circle</span> In-person</span>
+<span class="font-label-md text-on-surface font-bold">৳1,500</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-label-sm">Stock Level</span>
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-outline-variant rounded-full overflow-hidden">
+<div class="w-[90%] h-full bg-secondary"></div>
+</div>
+<span class="font-label-md text-on-surface">540 units</span>
+</div>
+</div>
+<div class="text-right">
+<span class="text-on-surface-variant font-label-sm">ROI</span>
+<p class="font-headline-sm text-headline-sm text-secondary">3.1x</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all group cursor-pointer" onclick="openEditPanel('Wireless Audio Pro')">
+<div class="h-48 bg-surface-container-low relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A pair of studio-quality over-ear headphones in matte black finish, resting on a textured wooden desk. Soft spotlighting highlights the metallic accents and leather ear pads. The atmosphere is professional and moody, focusing on the craftsmanship and technological quality of the product. The color palette consists of deep blacks, dark browns, and sharp metallic highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApVmMysVbpB2d2YgT6gxtEpCRnl--IVZEitoO6sxIM6Wy3lmnBOmsHgAVL8rWtqi0LvCq1lI4qwb8C69nz5gCsZZnDZfDU_ACHa0y9sRjMPlDjb3xVqg74g_SbXvu6RR02diMCjN9HH-DP3NP_6A-JxcBlT7ZNGypnzfVPHNiSvgqWVJbzYWEqZADJVSsiT9Dde-vo0spN982qxxaMTk6HJQl53NtufkzG1JeGZ2QDJmLRn4_Qd6Th3WAXGLsQ9LVjFiHXsTgpeF14"/>
+<div class="absolute top-3 right-3 flex flex-col gap-2">
+<span class="bg-surface-container-highest text-on-surface px-2 py-1 rounded-md font-label-sm text-label-sm">Draft</span>
+</div>
+</div>
+<div class="p-4 space-y-4 opacity-75">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Wireless Audio Pro</h3>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+<p class="text-on-surface-variant font-body-sm">SKU: GAD-2024-910</p>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-2 border-t border-outline-variant border-dashed">
+<div>
+<p class="text-on-surface-variant font-label-sm uppercase">Base Price</p>
+<p class="font-currency-display text-headline-sm text-primary">৳12,000</p>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-sm uppercase">Margin</p>
+<p class="font-headline-sm text-headline-sm text-on-tertiary-container">25%</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-3 rounded-xl space-y-2">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-on-surface-variant flex items-center gap-1">---</span>
+<span class="font-label-md text-on-surface font-bold">৳0</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-label-sm">Stock Level</span>
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-outline-variant rounded-full overflow-hidden">
+<div class="w-0 h-full bg-secondary"></div>
+</div>
+<span class="font-label-md text-on-surface">0 units</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Quick Edit Panel (Right Sidebar) -->
+<div class="fixed right-0 top-0 h-full w-[400px] bg-surface-container-lowest border-l border-outline-variant shadow-xl transform translate-x-full transition-transform duration-300 z-[60] flex flex-col" id="quickEditPanel">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary" id="panelTitle">Product Details</h2>
+<p class="text-on-surface-variant font-body-sm">Quickly update stock &amp; multi-channel pricing.</p>
+</div>
+<button class="hover:bg-surface-container-low rounded-full p-2 transition-colors" onclick="closeEditPanel()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex-grow overflow-y-auto p-6 space-y-8">
+<!-- Stock Section -->
+<div class="space-y-4">
+<label class="font-headline-sm text-headline-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">inventory_2</span>
+                    Inventory Level
+                </label>
+<div class="flex items-center gap-4">
+<button class="bg-surface-container-low w-12 h-12 rounded-xl flex items-center justify-center border border-outline-variant hover:bg-surface-container-high">-</button>
+<input class="flex-grow text-center font-headline-md text-headline-md border-outline-variant rounded-xl py-3 focus:ring-2 focus:ring-secondary-container" type="number" value="142"/>
+<button class="bg-surface-container-low w-12 h-12 rounded-xl flex items-center justify-center border border-outline-variant hover:bg-surface-container-high">+</button>
+</div>
+<p class="text-body-sm text-on-surface-variant">Last synced with Shopify: 2 minutes ago</p>
+</div>
+<!-- Pricing Section -->
+<div class="space-y-4">
+<label class="font-headline-sm text-headline-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">sell</span>
+                    Channel Pricing (৳)
+                </label>
+<div class="space-y-3">
+<div class="p-4 bg-surface border border-outline-variant rounded-2xl">
+<label class="font-label-sm text-on-surface-variant uppercase mb-2 block">Website Price</label>
+<div class="relative">
+<span class="absolute left-0 top-1/2 -translate-y-1/2 font-headline-sm text-headline-sm opacity-50">৳</span>
+<input class="w-full border-none bg-transparent pl-6 py-0 font-headline-md text-headline-md focus:ring-0" type="text" value="4,500"/>
+</div>
+</div>
+<div class="p-4 bg-surface border border-outline-variant rounded-2xl">
+<label class="font-label-sm text-on-surface-variant uppercase mb-2 block">Facebook Shop</label>
+<div class="relative">
+<span class="absolute left-0 top-1/2 -translate-y-1/2 font-headline-sm text-headline-sm opacity-50">৳</span>
+<input class="w-full border-none bg-transparent pl-6 py-0 font-headline-md text-headline-md focus:ring-0" type="text" value="4,800"/>
+</div>
+</div>
+<div class="p-4 bg-surface border border-outline-variant rounded-2xl">
+<label class="font-label-sm text-on-surface-variant uppercase mb-2 block">Physical Store</label>
+<div class="relative">
+<span class="absolute left-0 top-1/2 -translate-y-1/2 font-headline-sm text-headline-sm opacity-50">৳</span>
+<input class="w-full border-none bg-transparent pl-6 py-0 font-headline-md text-headline-md focus:ring-0" type="text" value="5,200"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Profitability Insight -->
+<div class="bg-tertiary-container text-on-tertiary-container p-4 rounded-2xl space-y-2">
+<div class="flex justify-between">
+<span class="font-label-md">Gross Profit / Unit</span>
+<span class="font-headline-sm">৳1,890</span>
+</div>
+<div class="flex justify-between">
+<span class="font-label-md">Profit Margin</span>
+<span class="font-headline-sm">42.2%</span>
+</div>
+<div class="w-full h-1 bg-on-tertiary-container/20 rounded-full mt-2">
+<div class="w-[42%] h-full bg-white rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="p-6 border-t border-outline-variant bg-surface-bright flex gap-3">
+<button class="flex-grow py-3 border border-outline-variant rounded-xl font-label-md text-label-md hover:bg-surface-container-low transition-colors" onclick="closeEditPanel()">Discard</button>
+<button class="flex-grow py-3 bg-primary text-on-primary rounded-xl font-headline-sm text-headline-sm active:scale-95 transition-transform">Save Changes</button>
+</div>
+</div>
+<!-- Bulk Actions FAB -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-primary text-on-primary px-6 py-3 rounded-full flex items-center gap-6 shadow-xl z-50 animate-bounce hover:animate-none transition-all">
+<span class="font-label-md text-label-md font-bold">12 Selected</span>
+<div class="h-4 w-[1px] bg-on-primary/20"></div>
+<div class="flex items-center gap-4">
+<button class="hover:text-secondary-fixed flex items-center gap-1 font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">edit</span> Edit
+            </button>
+<button class="hover:text-secondary-fixed flex items-center gap-1 font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">archive</span> Archive
+            </button>
+<button class="hover:text-secondary-fixed flex items-center gap-1 font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">sync</span> Sync
+            </button>
+</div>
+</div>
+<script>
+        function openEditPanel(productName) {
+            const panel = document.getElementById('quickEditPanel');
+            const title = document.getElementById('panelTitle');
+            title.innerText = productName;
+            panel.classList.remove('translate-x-full');
+        }
+
+        function closeEditPanel() {
+            const panel = document.getElementById('quickEditPanel');
+            panel.classList.add('translate-x-full');
+        }
+
+        // Close panel on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeEditPanel();
+        });
+    </script>
+</body></html>

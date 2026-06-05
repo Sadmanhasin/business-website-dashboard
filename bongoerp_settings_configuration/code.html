@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings &amp; Configuration | BongoERP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Geist:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#bec6e0",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "surface": "#f8f9ff",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-secondary-fixed-variant": "#004395",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#7c839b",
+                        "surface-tint": "#565e74",
+                        "secondary-container": "#2170e4",
+                        "on-background": "#0b1c30",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#002113",
+                        "tertiary": "#000000",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "primary": "#000000",
+                        "inverse-surface": "#213145",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#6ffbbe",
+                        "primary-fixed-dim": "#bec6e0",
+                        "secondary": "#0058be",
+                        "on-error": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "background": "#f8f9ff",
+                        "tertiary-container": "#002113",
+                        "surface-container-high": "#dce9ff",
+                        "primary-container": "#131b2e",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-secondary-fixed": "#001a42",
+                        "primary-fixed": "#dae2fd",
+                        "on-primary-fixed": "#131b2e",
+                        "outline": "#76777d",
+                        "on-secondary-container": "#fefcff",
+                        "outline-variant": "#c6c6cd",
+                        "surface-variant": "#d3e4fe",
+                        "on-surface-variant": "#45464d",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-container": "#009668",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "stack-md": "16px",
+                        "stack-lg": "24px",
+                        "container-padding-desktop": "32px",
+                        "container-padding-mobile": "16px",
+                        "stack-sm": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-md": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Geist"],
+                        "headline-sm": ["Geist"],
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "currency-display": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E2E8F0;
+            border-radius: 10px;
+        }
+        
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #0F172A;
+        }
+        .toggle-checkbox:checked + .toggle-label div {
+            transform: translateX(100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #E2E8F0;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-container">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-surface-container-lowest border-r border-outline-variant flex flex-col p-4 gap-2 z-50">
+<div class="mb-8 px-4">
+<h1 class="text-headline-lg font-headline-lg font-black text-on-surface">BongoERP</h1>
+<p class="text-label-md font-label-md text-on-surface-variant">Premium Merchant OS</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-md text-label-md">AI Advisor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg font-bold" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="pt-4 border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors text-error" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Log Out</span>
+</a>
+</div>
+</aside>
+<!-- Top Navigation -->
+<header class="fixed top-0 left-[280px] right-0 h-16 bg-surface border-b border-outline-variant flex justify-between items-center px-6 z-40">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full font-body-md text-body-md focus:ring-2 focus:ring-secondary-container" placeholder="Search settings..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-colors">business_center</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCI9WmlhHhpVkLKXC4KLUP98DGBP_DbvC-6aBekh34OoFG1QSG2ttACOiC-A_S5xwRM6iqm3mtG7_HWa83a80Ld4j3x031prlWvKh0Osq7gZyDhN2mUH-OxgQQnaRfqGtzUsHFsRpdYAxhX_G_wwN371kplJ-kSPk7DFjHgGmRf682fAEe8bD8YBA-9pa-vtSTm0O-VgSKLCe3B0ubV5t0r0dg_NsTJCk8OLzyPCHcGunzRyoYjmSXhB3M9Nsx2qzMQJ5Ce-_EGLwvw"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-[280px] pt-16 min-h-screen p-8">
+<div class="max-w-6xl mx-auto">
+<header class="mb-8">
+<h2 class="text-display-lg font-display-lg text-on-surface mb-2">Settings</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Manage your enterprise configuration, multi-warehouse logistics, and integration protocols.</p>
+</header>
+<div class="grid grid-cols-12 gap-8">
+<!-- Navigation Tabs (Vertical) -->
+<nav class="col-span-3 space-y-2">
+<button class="w-full flex items-center gap-3 px-4 py-3 bg-surface-container-high rounded-xl text-primary font-bold">
+<span class="material-symbols-outlined">warehouse</span>
+<span class="font-label-md text-label-md">Warehouse Setup</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-xl transition-all">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="font-label-md text-label-md">Permissions</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-xl transition-all">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label-md text-label-md">Integrations</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-xl transition-all">
+<span class="material-symbols-outlined">backup</span>
+<span class="font-label-md text-label-md">Data &amp; Backup</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-xl transition-all">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="font-label-md text-label-md">Billing Info</span>
+</button>
+</nav>
+<!-- Configuration Panels -->
+<div class="col-span-9 space-y-8">
+<!-- Multi-Warehouse Setup -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Multi-Warehouse Setup</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Configure logistics hubs and stock distribution centers.</p>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md active:scale-95 transition-all">
+                                + Add Warehouse
+                            </button>
+</div>
+<div class="space-y-4">
+<!-- Warehouse Row 1 -->
+<div class="flex items-center justify-between p-4 bg-surface rounded-xl border border-outline-variant">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-secondary-container text-on-secondary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<div>
+<p class="font-headline-sm text-headline-sm">Dhaka Central Hub</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Tejgaon Industrial Area, Dhaka</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">Stock Value</p>
+<p class="font-headline-sm text-headline-sm">৳ 4,250,000</p>
+</div>
+<span class="px-3 py-1 bg-green-100 text-green-700 rounded-full font-label-sm text-label-sm">Primary</span>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">edit</button>
+</div>
+</div>
+<!-- Warehouse Row 2 -->
+<div class="flex items-center justify-between p-4 bg-surface rounded-xl border border-outline-variant">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-container-high text-on-surface-variant rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<div>
+<p class="font-headline-sm text-headline-sm">Chittagong Port Node</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">EPZ Zone, South Chittagong</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">Stock Value</p>
+<p class="font-headline-sm text-headline-sm">৳ 1,890,000</p>
+</div>
+<span class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full font-label-sm text-label-sm">Secondary</span>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">edit</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Role-Based Permissions -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 shadow-sm">
+<div class="mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Employee Roles &amp; Permissions</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Define what actions your team can perform in the system.</p>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-on-surface-variant">
+<tr>
+<th class="px-4 py-3 font-label-md text-label-md uppercase tracking-wider rounded-l-lg">Role</th>
+<th class="px-4 py-3 font-label-md text-label-md uppercase tracking-wider">Inventory</th>
+<th class="px-4 py-3 font-label-md text-label-md uppercase tracking-wider">Finance</th>
+<th class="px-4 py-3 font-label-md text-label-md uppercase tracking-wider">Staffing</th>
+<th class="px-4 py-3 font-label-md text-label-md uppercase tracking-wider rounded-r-lg text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-4 py-4">
+<p class="font-headline-sm text-headline-sm">Admin</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Full Control</p>
+</td>
+<td class="px-4 py-4"><span class="material-symbols-outlined text-green-600" style="font-variation-settings: 'FILL' 1;">check_circle</span></td>
+<td class="px-4 py-4"><span class="material-symbols-outlined text-green-600" style="font-variation-settings: 'FILL' 1;">check_circle</span></td>
+<td class="px-4 py-4"><span class="material-symbols-outlined text-green-600" style="font-variation-settings: 'FILL' 1;">check_circle</span></td>
+<td class="px-4 py-4 text-right"><button class="text-on-surface-variant font-label-md text-label-md underline">Manage</button></td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-4 py-4">
+<p class="font-headline-sm text-headline-sm">Manager</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Limited Finance</p>
+</td>
+<td class="px-4 py-4"><span class="material-symbols-outlined text-green-600" style="font-variation-settings: 'FILL' 1;">check_circle</span></td>
+<td class="px-4 py-4"><span class="material-symbols-outlined text-on-surface-variant">remove_circle_outline</span></td>
+<td class="px-4 py-4"><span class="material-symbols-outlined text-green-600" style="font-variation-settings: 'FILL' 1;">check_circle</span></td>
+<td class="px-4 py-4 text-right"><button class="text-on-surface-variant font-label-md text-label-md underline">Manage</button></td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-4 py-4">
+<p class="font-headline-sm text-headline-sm">Staff</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Sales &amp; Support</p>
+</td>
+<td class="px-4 py-4"><span class="material-symbols-outlined text-green-600" style="font-variation-settings: 'FILL' 1;">check_circle</span></td>
+<td class="px-4 py-4"><span class="material-symbols-outlined text-on-surface-variant">remove_circle_outline</span></td>
+<td class="px-4 py-4"><span class="material-symbols-outlined text-on-surface-variant">remove_circle_outline</span></td>
+<td class="px-4 py-4 text-right"><button class="text-on-surface-variant font-label-md text-label-md underline">Manage</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Bento Grid for Integrations & Backup -->
+<div class="grid grid-cols-2 gap-6">
+<!-- WhatsApp/SMS Integration -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 shadow-sm">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 bg-[#25D366]/10 text-[#25D366] rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm">Messaging API</h3>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md">WhatsApp Business API</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="w-10 h-5 bg-outline-variant rounded-full toggle-label transition-all relative">
+<div class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-transform"></div>
+</div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md">SMS Notifications</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="w-10 h-5 bg-outline-variant rounded-full toggle-label transition-all relative">
+<div class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full transition-transform"></div>
+</div>
+</label>
+</div>
+<div class="pt-4 border-t border-outline-variant">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-2 uppercase">Status</p>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+<span class="font-label-md text-label-md text-on-surface">Connected to Meta API</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Data Backup Controls -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 shadow-sm overflow-hidden relative">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 bg-primary-container text-on-primary-container rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">cloud_done</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm">Data &amp; Backup</h3>
+</div>
+<div class="space-y-4 relative z-10">
+<div class="bg-surface p-3 rounded-lg border border-outline-variant">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase">Last Backup</p>
+<p class="font-headline-sm text-headline-sm">Today, 04:12 AM</p>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-primary text-on-primary py-2 rounded-lg font-label-md text-label-md active:scale-95 transition-all">
+                                        Backup Now
+                                    </button>
+<button class="flex-1 border border-outline-variant text-on-surface-variant py-2 rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+                                        Download SQL
+                                    </button>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span class="font-label-sm text-label-sm">Automatic daily cloud backup enabled</span>
+</div>
+</div>
+<!-- Visual atmospheric effect -->
+<div class="absolute -right-12 -bottom-12 w-32 h-32 bg-secondary-container/5 rounded-full blur-3xl"></div>
+</div>
+</div>
+<!-- Dangerous Zone -->
+<section class="bg-red-50 border border-red-200 rounded-2xl p-6">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 bg-red-100 text-red-600 rounded-xl flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">report</span>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-headline-sm text-red-900">Advanced: Factory Reset</h3>
+<p class="font-body-sm text-body-sm text-red-700 mb-4">Clearing all data will permanently remove all orders, customers, and inventory records. This action cannot be undone.</p>
+<button class="bg-red-600 text-white px-6 py-2 rounded-lg font-label-md text-label-md hover:bg-red-700 active:scale-95 transition-all">
+                                    Clear All Data
+                                </button>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Action Bar (Sticky for Mobile-ish experience) -->
+<footer class="fixed bottom-0 left-[280px] right-0 bg-white/80 backdrop-blur-md border-t border-outline-variant p-4 flex justify-end gap-4 z-40">
+<button class="px-6 py-2 border border-outline-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-all">
+            Discard Changes
+        </button>
+<button class="px-8 py-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md shadow-lg active:scale-95 transition-all">
+            Save Configuration
+        </button>
+</footer>
+<script>
+        // Micro-interactions for toggles and buttons
+        document.querySelectorAll('.active\\:scale-95').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-95');
+            });
+            button.addEventListener('mouseleave', () => {
+                button.classList.remove('scale-95');
+            });
+        });
+
+        // Simple Tab Switch Simulation (Visual only for this static demo)
+        const tabs = document.querySelectorAll('nav.col-span-3 button');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('bg-surface-container-high', 'text-primary', 'font-bold');
+                    t.classList.add('text-on-surface-variant');
+                });
+                tab.classList.add('bg-surface-container-high', 'text-primary', 'font-bold');
+                tab.classList.remove('text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

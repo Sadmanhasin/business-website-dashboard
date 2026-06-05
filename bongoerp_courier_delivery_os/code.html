@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BongoERP - Delivery &amp; Courier Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Geist:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed": "#001a42",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#6ffbbe",
+                      "primary-container": "#131b2e",
+                      "secondary": "#0058be",
+                      "on-background": "#0b1c30",
+                      "on-error": "#ffffff",
+                      "outline-variant": "#c6c6cd",
+                      "inverse-primary": "#bec6e0",
+                      "tertiary-container": "#002113",
+                      "secondary-fixed-dim": "#adc6ff",
+                      "surface-container-high": "#dce9ff",
+                      "on-secondary-container": "#fefcff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "primary": "#000000",
+                      "surface-tint": "#565e74",
+                      "on-surface-variant": "#45464d",
+                      "background": "#f8f9ff",
+                      "tertiary": "#000000",
+                      "secondary-container": "#2170e4",
+                      "outline": "#76777d",
+                      "secondary-fixed": "#d8e2ff",
+                      "surface-variant": "#d3e4fe",
+                      "on-primary": "#ffffff",
+                      "surface-container": "#e5eeff",
+                      "on-secondary": "#ffffff",
+                      "inverse-surface": "#213145",
+                      "on-surface": "#0b1c30",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed": "#131b2e",
+                      "surface-bright": "#f8f9ff",
+                      "on-tertiary-container": "#009668",
+                      "surface-dim": "#cbdbf5",
+                      "surface": "#f8f9ff",
+                      "surface-container-low": "#eff4ff",
+                      "primary-fixed": "#dae2fd",
+                      "on-tertiary-fixed-variant": "#005236",
+                      "primary-fixed-dim": "#bec6e0",
+                      "on-secondary-fixed-variant": "#004395"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-padding-mobile": "16px",
+                      "stack-lg": "24px",
+                      "unit": "4px",
+                      "stack-md": "16px",
+                      "stack-sm": "8px",
+                      "gutter": "16px",
+                      "container-padding-desktop": "32px"
+              },
+              "fontFamily": {
+                      "headline-sm": ["Geist"],
+                      "headline-lg": ["Geist"],
+                      "headline-md": ["Geist"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Geist"],
+                      "label-sm": ["Geist"],
+                      "display-lg": ["Geist"],
+                      "body-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "currency-display": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "600"}],
+                      "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                      "currency-display": ["24px", {"lineHeight": "32px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+        .active-tab { border-bottom: 2px solid #0058be; color: #0058be; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-surface-container-lowest border-r border-outline-variant flex flex-col p-4 gap-2 z-50 hidden lg:flex">
+<div class="mb-8 px-2 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary flex items-center justify-center rounded-lg shadow-lg">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">package_2</span>
+</div>
+<div>
+<h1 class="text-on-surface font-headline-lg text-headline-lg font-black tracking-tight leading-none">BongoERP</h1>
+<p class="text-on-surface-variant font-label-md text-label-md">Premium Merchant OS</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg font-bold shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+<span class="font-label-md text-label-md">Courier</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Finance</span>
+</a>
+<div class="my-2 border-t border-outline-variant opacity-50 mx-2"></div>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-md text-label-md font-semibold text-secondary">AI Advisor</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 flex flex-col gap-1 border-t border-outline-variant">
+<button class="w-full bg-primary text-white py-3 rounded-xl font-headline-sm flex items-center justify-center gap-2 mb-4 hover:shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+                Add Parcel
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Log Out</span>
+</a>
+</div>
+</aside>
+<main class="lg:ml-[280px] min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="h-16 px-6 bg-surface border-b border-outline-variant flex items-center justify-between sticky top-0 z-40">
+<div class="flex items-center gap-4 lg:hidden">
+<button class="p-2"><span class="material-symbols-outlined">menu</span></button>
+</div>
+<h2 class="font-headline-md lg:hidden">Courier</h2>
+<div class="hidden lg:flex items-center flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-lg font-body-md focus:ring-0" placeholder="Search tracking ID, order, or customer..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-3 pl-4">
+<div class="text-right hidden sm:block">
+<p class="font-label-md text-on-surface leading-none">Mahmudur Rahman</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Super Admin</p>
+</div>
+<img alt="User" class="w-10 h-10 rounded-full border-2 border-surface shadow-sm object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVOJB7U5Jbv9AgpmraaqobbFF2kSe2PTCu42oAf6bl4Ix51CCGNwE3HIq7ucC9dQnIh4JWxUzmRMiWSjav_MjqG0jShZq2hDGCQyrUZypcw24xddKJnQOKiBxqB660eD2MkrbfY71LGfPVVn3aRF2o4Hna9_6ergdi7RL2ql-ZOcpBTsRrw_aHVcqt7pxbz9wVACbfRyguLHoAf010sr05rlrCLK0dDZitTiiS6pxsF_XBL6M-5X192DUKyRxeXUIdbPxacnd2Nkkf"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="p-4 lg:p-8 max-w-[1600px] w-full mx-auto space-y-6">
+<!-- Header -->
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-surface leading-tight">Delivery &amp; Courier</h2>
+<p class="text-on-surface-variant font-body-lg">Logistics monitoring and settlement tracking.</p>
+</div>
+<div class="hidden sm:flex items-center gap-2">
+<button class="px-4 py-2 border border-outline-variant rounded-lg font-label-md hover:bg-surface-container-low transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">sync</span>
+                        Re-sync All
+                    </button>
+<button class="px-4 py-2 bg-primary text-white rounded-lg font-label-md hover:shadow-lg transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">file_download</span>
+                        Reports
+                    </button>
+</div>
+</div>
+<!-- KPI Cards Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-7 gap-4">
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+<p class="text-[11px] text-on-surface-variant uppercase font-bold tracking-wider mb-2">Total Parcels</p>
+<h3 class="font-headline-lg text-headline-lg">1,482</h3>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+<p class="text-[11px] text-on-surface-variant uppercase font-bold tracking-wider mb-2">Delivered</p>
+<h3 class="font-headline-lg text-headline-lg text-emerald-600">1,240</h3>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+<p class="text-[11px] text-on-surface-variant uppercase font-bold tracking-wider mb-2">Cash Collected</p>
+<h3 class="font-headline-lg text-headline-lg">৳5,700</h3>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+<p class="text-[11px] text-on-surface-variant uppercase font-bold tracking-wider mb-2">Courier Stock</p>
+<h3 class="font-headline-lg text-headline-lg">132</h3>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+<p class="text-[11px] text-on-surface-variant uppercase font-bold tracking-wider mb-2">Returned to Me</p>
+<h3 class="font-headline-lg text-headline-lg text-error">14</h3>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+<p class="text-[11px] text-on-surface-variant uppercase font-bold tracking-wider mb-2">Cash Pending</p>
+<h3 class="font-headline-lg text-headline-lg text-secondary">৳2,840</h3>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+<p class="text-[11px] text-on-surface-variant uppercase font-bold tracking-wider mb-2">Awaiting Settl.</p>
+<h3 class="font-headline-lg text-headline-lg">৳1,150</h3>
+</div>
+</div>
+<!-- Courier Performance Cards Section -->
+<div class="space-y-4">
+<h3 class="font-headline-sm">Courier Performance</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Pathao -->
+<button class="bg-surface-container-lowest border-2 border-secondary p-5 rounded-2xl shadow-md text-left transition-all active:scale-95 group relative overflow-hidden" onclick="selectCourier('Pathao')">
+<div class="absolute top-0 right-0 p-3 opacity-10">
+<span class="material-symbols-outlined text-[64px]">local_shipping</span>
+</div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-headline-sm text-on-surface">Pathao</h4>
+<span class="text-emerald-600 font-bold text-headline-lg">88%</span>
+</div>
+<span class="bg-secondary-container text-on-secondary-container p-2 rounded-lg">
+<span class="material-symbols-outlined">arrow_forward</span>
+</span>
+</div>
+<div class="grid grid-cols-2 gap-y-3">
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Delivered</p><p class="font-headline-sm">412</p></div>
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Returned</p><p class="font-headline-sm">42</p></div>
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Avg Time</p><p class="font-headline-sm">2.4 Days</p></div>
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Cash Pending</p><p class="font-headline-sm text-secondary">৳1,240</p></div>
+</div>
+</button>
+<!-- Steadfast -->
+<button class="bg-surface-container-lowest border border-outline-variant p-5 rounded-2xl shadow-sm text-left transition-all hover:border-secondary/50 active:scale-95" onclick="selectCourier('Steadfast')">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-headline-sm text-on-surface">Steadfast</h4>
+<span class="text-emerald-600 font-bold text-headline-lg">85.6%</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-y-3">
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Delivered</p><p class="font-headline-sm">528</p></div>
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Returned</p><p class="font-headline-sm">68</p></div>
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Avg Time</p><p class="font-headline-sm">1.8 Days</p></div>
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Cash Pending</p><p class="font-headline-sm text-secondary">৳850</p></div>
+</div>
+</button>
+<!-- RedX -->
+<button class="bg-surface-container-lowest border border-outline-variant p-5 rounded-2xl shadow-sm text-left transition-all hover:border-secondary/50 active:scale-95" onclick="selectCourier('RedX')">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-headline-sm text-on-surface">RedX</h4>
+<span class="text-emerald-600 font-bold text-headline-lg">90.4%</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-y-3">
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Delivered</p><p class="font-headline-sm">210</p></div>
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Returned</p><p class="font-headline-sm">18</p></div>
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Avg Time</p><p class="font-headline-sm">3.1 Days</p></div>
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Cash Pending</p><p class="font-headline-sm text-secondary">৳510</p></div>
+</div>
+</button>
+<!-- Sundarban -->
+<button class="bg-surface-container-lowest border border-outline-variant p-5 rounded-2xl shadow-sm text-left transition-all hover:border-secondary/50 active:scale-95" onclick="selectCourier('Sundarban')">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-headline-sm text-on-surface">Sundarban</h4>
+<span class="text-emerald-600 font-bold text-headline-lg">87.1%</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-y-3">
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Delivered</p><p class="font-headline-sm">90</p></div>
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Returned</p><p class="font-headline-sm">12</p></div>
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Avg Time</p><p class="font-headline-sm">4.5 Days</p></div>
+<div><p class="text-[10px] text-on-surface-variant uppercase font-bold">Cash Pending</p><p class="font-headline-sm text-secondary">৳240</p></div>
+</div>
+</button>
+</div>
+</div>
+<!-- Detailed Parcel List Area -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-sm flex flex-col overflow-hidden">
+<!-- Status Tabs & Search -->
+<div class="p-4 border-b border-outline-variant bg-surface-container-low/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex items-center gap-6 overflow-x-auto pb-2 sm:pb-0">
+<button class="pb-2 font-label-md active-tab whitespace-nowrap">All Parcels</button>
+<button class="pb-2 font-label-md text-on-surface-variant hover:text-on-surface whitespace-nowrap">Delivered</button>
+<button class="pb-2 font-label-md text-on-surface-variant hover:text-on-surface whitespace-nowrap">In Transit</button>
+<button class="pb-2 font-label-md text-on-surface-variant hover:text-on-surface whitespace-nowrap flex items-center gap-1">
+                            Returned 
+                            <span class="bg-error text-white text-[10px] px-1.5 rounded-full">4</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<div class="relative max-w-xs">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="pl-9 pr-4 py-2 border border-outline-variant rounded-lg text-body-sm w-full" placeholder="Tracking ID..." type="text"/>
+</div>
+<button class="p-2 border border-outline-variant rounded-lg"><span class="material-symbols-outlined">filter_list</span></button>
+</div>
+</div>
+<!-- Table Content -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/10 border-b border-outline-variant">
+<th class="p-4 font-label-md text-label-md uppercase text-on-surface-variant tracking-wider">Parcel &amp; ID</th>
+<th class="p-4 font-label-md text-label-md uppercase text-on-surface-variant tracking-wider">Customer</th>
+<th class="p-4 font-label-md text-label-md uppercase text-on-surface-variant tracking-wider">Courier / Method</th>
+<th class="p-4 font-label-md text-label-md uppercase text-on-surface-variant tracking-wider">Status</th>
+<th class="p-4 font-label-md text-label-md uppercase text-on-surface-variant tracking-wider">Last Update</th>
+<th class="p-4 font-label-md text-label-md uppercase text-on-surface-variant tracking-wider text-right">Cash Value</th>
+<th class="p-4 w-12"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Delivered Example -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="p-4">
+<p class="font-headline-sm">#TRK-982341</p>
+<p class="text-[10px] text-on-surface-variant">Order #12940</p>
+</td>
+<td class="p-4">
+<p class="font-body-md font-semibold">Ariful Islam</p>
+<p class="text-body-sm text-on-surface-variant">+880 1712-345678</p>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 bg-red-100 rounded flex items-center justify-center text-[10px] font-bold text-red-600">P</span>
+<p class="text-body-md">Pathao (Cash)</p>
+</div>
+</td>
+<td class="p-4">
+<span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-label-sm flex items-center gap-1 w-fit">
+<span class="material-symbols-outlined text-[14px]">task_alt</span>
+                                        Delivered
+                                    </span>
+</td>
+<td class="p-4">
+<p class="text-body-md">Today, 10:24 AM</p>
+<p class="text-[10px] text-on-surface-variant">Delivered in 2.1 days</p>
+</td>
+<td class="p-4 text-right font-headline-sm">৳1,250</td>
+<td class="p-4">
+<button class="p-1 hover:bg-surface-container-high rounded"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- Returned Impact Example -->
+<tr class="bg-error-container/5 hover:bg-error-container/10 transition-colors">
+<td class="p-4">
+<p class="font-headline-sm">#TRK-982355</p>
+<p class="text-[10px] text-on-surface-variant">Order #12943</p>
+</td>
+<td class="p-4">
+<p class="font-body-md font-semibold">Saima Rashid</p>
+<p class="text-body-sm text-on-surface-variant">Dhaka, Banani</p>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 bg-blue-100 rounded flex items-center justify-center text-[10px] font-bold text-blue-600">S</span>
+<p class="text-body-md">Steadfast</p>
+</div>
+</td>
+<td class="p-4">
+<span class="px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 text-label-sm flex items-center gap-1 w-fit">
+<span class="material-symbols-outlined text-[14px]">assignment_return</span>
+                                        Returned
+                                    </span>
+</td>
+<td class="p-4">
+<div class="flex flex-col gap-1">
+<p class="text-body-md font-semibold text-rose-700">Inventory Impact</p>
+<p class="text-[10px] text-on-surface-variant italic">Stock not yet received</p>
+</div>
+</td>
+<td class="p-4 text-right font-headline-sm text-error">৳2,100</td>
+<td class="p-4">
+<button class="p-1 hover:bg-surface-container-high rounded"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- In Transit Example -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-4">
+<p class="font-headline-sm">#TRK-982390</p>
+<p class="text-[10px] text-on-surface-variant">Order #12948</p>
+</td>
+<td class="p-4">
+<p class="font-body-md font-semibold">Nigar Sultana</p>
+<p class="text-body-sm text-on-surface-variant">Chittagong</p>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 bg-red-100 rounded flex items-center justify-center text-[10px] font-bold text-red-600">P</span>
+<p class="text-body-md">Pathao</p>
+</div>
+</td>
+<td class="p-4">
+<span class="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-label-sm flex items-center gap-1 w-fit">
+<span class="material-symbols-outlined text-[14px] animate-pulse">local_shipping</span>
+                                        In Transit
+                                    </span>
+</td>
+<td class="p-4">
+<p class="text-body-md">Yesterday, 4:45 PM</p>
+<p class="text-[10px] text-on-surface-variant">Reached Hub: CTG-01</p>
+</td>
+<td class="p-4 text-right font-headline-sm">৳1,100</td>
+<td class="p-4">
+<button class="p-1 hover:bg-surface-container-high rounded"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer / Pagination -->
+<div class="p-4 border-t border-outline-variant flex flex-col sm:flex-row items-center justify-between gap-4">
+<p class="text-label-md text-on-surface-variant">Showing 3 of 1,482 total parcels</p>
+<div class="flex items-center gap-2">
+<button class="p-2 border border-outline-variant rounded-lg disabled:opacity-50" disabled=""><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+<div class="flex gap-1">
+<button class="w-8 h-8 bg-secondary text-white rounded-lg text-label-md">1</button>
+<button class="w-8 h-8 hover:bg-surface-container-low rounded-lg text-label-md">2</button>
+</div>
+<button class="p-2 border border-outline-variant rounded-lg"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function selectCourier(name) {
+            // Visual feedback for selection
+            document.querySelectorAll('button[onclick^="selectCourier"]').forEach(btn => {
+                btn.classList.remove('border-secondary', 'shadow-md');
+                btn.classList.add('border-outline-variant', 'shadow-sm');
+                const icon = btn.querySelector('.material-symbols-outlined:not(.text-\\[64px\\])');
+                if(icon) icon.parentElement.remove();
+            });
+
+            const selected = event.currentTarget;
+            selected.classList.add('border-secondary', 'shadow-md');
+            selected.classList.remove('border-outline-variant', 'shadow-sm');
+            
+            // Re-adding the indicator icon if not present
+            if(!selected.querySelector('.bg-secondary-container')) {
+                const header = selected.querySelector('.flex.justify-between');
+                const indicator = document.createElement('span');
+                indicator.className = "bg-secondary-container text-on-secondary-container p-2 rounded-lg";
+                indicator.innerHTML = '<span class="material-symbols-outlined">arrow_forward</span>';
+                header.appendChild(indicator);
+            }
+
+            console.log("Filtering by courier:", name);
+            // In a real app, this would trigger a table refresh
+        }
+    </script>
+</body></html>

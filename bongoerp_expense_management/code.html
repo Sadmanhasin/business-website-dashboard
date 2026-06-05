@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BongoERP - Expense Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Geist:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "inverse-primary": "#bec6e0",
+                "inverse-on-surface": "#eaf1ff",
+                "surface-bright": "#f8f9ff",
+                "secondary-fixed-dim": "#adc6ff",
+                "surface": "#f8f9ff",
+                "tertiary-fixed-dim": "#4edea3",
+                "surface-container-highest": "#d3e4fe",
+                "on-secondary-fixed-variant": "#004395",
+                "surface-container-low": "#eff4ff",
+                "on-primary": "#ffffff",
+                "surface-container-lowest": "#ffffff",
+                "on-primary-container": "#7c839b",
+                "surface-tint": "#565e74",
+                "secondary-container": "#2170e4",
+                "on-background": "#0b1c30",
+                "error": "#ba1a1a",
+                "on-tertiary": "#ffffff",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed": "#002113",
+                "tertiary": "#000000",
+                "on-primary-fixed-variant": "#3f465c",
+                "primary": "#000000",
+                "inverse-surface": "#213145",
+                "surface-dim": "#cbdbf5",
+                "tertiary-fixed": "#6ffbbe",
+                "primary-fixed-dim": "#bec6e0",
+                "secondary": "#0058be",
+                "on-error": "#ffffff",
+                "on-surface": "#0b1c30",
+                "background": "#f8f9ff",
+                "tertiary-container": "#002113",
+                "surface-container-high": "#dce9ff",
+                "primary-container": "#131b2e",
+                "on-tertiary-fixed-variant": "#005236",
+                "on-secondary-fixed": "#001a42",
+                "primary-fixed": "#dae2fd",
+                "on-primary-fixed": "#131b2e",
+                "outline": "#76777d",
+                "on-secondary-container": "#fefcff",
+                "outline-variant": "#c6c6cd",
+                "surface-variant": "#d3e4fe",
+                "on-surface-variant": "#45464d",
+                "on-error-container": "#93000a",
+                "surface-container": "#e5eeff",
+                "on-tertiary-container": "#009668",
+                "secondary-fixed": "#d8e2ff",
+                "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "unit": "4px",
+                "stack-md": "16px",
+                "stack-lg": "24px",
+                "container-padding-desktop": "32px",
+                "container-padding-mobile": "16px",
+                "stack-sm": "8px",
+                "gutter": "16px"
+            },
+            "fontFamily": {
+                "body-lg": ["Inter"],
+                "label-md": ["Geist"],
+                "headline-md": ["Geist"],
+                "body-md": ["Inter"],
+                "label-sm": ["Geist"],
+                "headline-sm": ["Geist"],
+                "body-sm": ["Inter"],
+                "headline-lg": ["Geist"],
+                "display-lg": ["Geist"],
+                "currency-display": ["Inter"]
+            },
+            "fontSize": {
+                "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "600"}],
+                "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                "currency-display": ["24px", {"lineHeight": "32px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9ff; }
+        .font-headline { font-family: 'Geist', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(8px); border: 1px solid #E2E8F0; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #d3e4fe; border-radius: 10px; }
+    </style>
+</head>
+<body class="flex min-h-screen bg-background">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-surface-container-lowest border-r border-outline-variant flex flex-col p-4 gap-2 shadow-sm z-50">
+<div class="mb-8 px-4 py-2">
+<h1 class="text-headline-lg font-headline-lg font-black text-on-surface">BongoERP</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Premium Merchant OS</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">inventory</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-md text-label-md">Courier</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-md text-label-md">Marketing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-label-md text-label-md">Finance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-label-md text-label-md">Employees</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-md text-label-md">AI Advisor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-4 space-y-1">
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-3 rounded-xl mb-4 active:scale-[0.98] transition-all">Add Order</button>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Log Out</span>
+</a>
+</div>
+</aside>
+<main class="ml-[280px] w-full min-h-screen pb-12">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-40 h-16 w-full bg-surface border-b border-outline-variant flex justify-between items-center px-6">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-full text-body-md focus:ring-2 focus:ring-secondary-container focus:border-transparent outline-none transition-all" placeholder="Search expenses, reports, or vendor..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-colors">business_center</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User" class="w-full h-full object-cover" data-alt="A professional headshot of a smiling South Asian business executive in a modern office setting. The person is wearing a sharp, dark business suit and the image has high-key lighting that feels clean and professional, matching the light-mode UI design. The overall mood is confident, approachable, and corporate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdxvOH59WzvtKbiEwIFJCKHh1mjZ-bk2o4rmTLb6AF8kWdPylZr-tzu4xMCZcR4FKzBznVCKtDhJMFvdAihDKfzLF_zdrKYo7O5kDQ9iOy62oaZlepCIGI5hXBHffzNvxTHB9F5b_9JJTXzfbuIVEKbWA0is48hCDRZNg-DIRgBTDc6I6WkGUW2aW28MXUIkrkgWVZocqhOVAO3uiCpzQQJt5ZvErHA-z8RHQ06rOrxyQmVqdcWZho7Psg2WRSZw8vgtplLCJ2zwgV"/>
+</div>
+</div>
+</header>
+<div class="p-8">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-1">Expense Management</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Review and optimize your business operating costs for Q3.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Export Report
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        New Expense
+                    </button>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Bento Area: Total & Main Categories -->
+<div class="col-span-12 lg:col-span-8 grid grid-cols-3 gap-6">
+<!-- Main KPI Card -->
+<div class="col-span-3 bg-primary-container text-white p-6 rounded-2xl shadow-sm overflow-hidden relative group">
+<div class="absolute right-0 top-0 opacity-10 scale-150 pointer-events-none group-hover:scale-125 transition-transform duration-700">
+<span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<div class="relative z-10">
+<p class="font-label-md text-label-md opacity-80 uppercase tracking-widest mb-2">Total Monthly Spend</p>
+<h3 class="font-display-lg text-display-lg mb-4">৳ 2,45,800.00</h3>
+<div class="flex items-center gap-2">
+<span class="bg-tertiary-fixed-dim text-on-tertiary-fixed font-label-sm text-label-sm px-2 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                                    4.2%
+                                </span>
+<span class="text-label-sm font-label-sm opacity-60">vs last month</span>
+</div>
+</div>
+</div>
+<!-- Category Breakdown Bento -->
+<div class="col-span-1 glass-card p-5 rounded-2xl hover:shadow-md transition-all border border-outline-variant">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">apartment</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">32%</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Office Rent</p>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">৳ 78,000</h4>
+</div>
+<div class="col-span-1 glass-card p-5 rounded-2xl hover:shadow-md transition-all border border-outline-variant">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">12%</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Utilities</p>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">৳ 29,400</h4>
+</div>
+<div class="col-span-1 glass-card p-5 rounded-2xl hover:shadow-md transition-all border border-outline-variant">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">package</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">15%</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Packaging</p>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">৳ 36,800</h4>
+</div>
+<!-- Trend Visualization -->
+<div class="col-span-3 glass-card p-6 rounded-2xl border border-outline-variant">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Expense Trends</h3>
+<div class="flex gap-2">
+<span class="flex items-center gap-1.5 text-label-sm font-label-sm text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span> Fixed
+                                </span>
+<span class="flex items-center gap-1.5 text-label-sm font-label-sm text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span> Variable
+                                </span>
+</div>
+</div>
+<!-- Mock Chart Visualization -->
+<div class="h-48 flex items-end justify-between gap-2 px-2 relative">
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-10">
+<div class="border-t border-on-surface w-full"></div>
+<div class="border-t border-on-surface w-full"></div>
+<div class="border-t border-on-surface w-full"></div>
+<div class="border-t border-on-surface w-full"></div>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full flex flex-col items-center gap-1">
+<div class="w-full max-w-[24px] bg-secondary rounded-t-sm" style="height: 40px"></div>
+<div class="w-full max-w-[24px] bg-primary rounded-t-sm" style="height: 60px"></div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Apr</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full flex flex-col items-center gap-1">
+<div class="w-full max-w-[24px] bg-secondary rounded-t-sm" style="height: 55px"></div>
+<div class="w-full max-w-[24px] bg-primary rounded-t-sm" style="height: 60px"></div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">May</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full flex flex-col items-center gap-1">
+<div class="w-full max-w-[24px] bg-secondary rounded-t-sm" style="height: 45px"></div>
+<div class="w-full max-w-[24px] bg-primary rounded-t-sm" style="height: 60px"></div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Jun</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full flex flex-col items-center gap-1">
+<div class="w-full max-w-[24px] bg-secondary rounded-t-sm" style="height: 85px"></div>
+<div class="w-full max-w-[24px] bg-primary rounded-t-sm" style="height: 60px"></div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Jul</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full flex flex-col items-center gap-1">
+<div class="w-full max-w-[24px] bg-secondary rounded-t-sm" style="height: 65px"></div>
+<div class="w-full max-w-[24px] bg-primary rounded-t-sm" style="height: 60px"></div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Aug</span>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Sidebar -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<!-- AI Optimizer Widget -->
+<div class="bg-surface-container-highest border border-outline-variant p-6 rounded-2xl relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 opacity-5 group-hover:rotate-12 transition-transform duration-500">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Cost Optimizer</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6">AI detected 3 opportunities to reduce your monthly burn rate by up to 12%.</p>
+<div class="space-y-4">
+<div class="flex gap-3 items-start p-3 bg-surface-container-lowest rounded-xl border border-outline-variant">
+<span class="material-symbols-outlined text-error mt-0.5">warning</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Packaging Costs Up</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Supplier 'EcoPack Ltd' increased rates by 18%. Switch to 'Dhaka Wraps' to save ৳ 4,200/mo.</p>
+</div>
+</div>
+<div class="flex gap-3 items-start p-3 bg-surface-container-lowest rounded-xl border border-outline-variant">
+<span class="material-symbols-outlined text-on-tertiary-container mt-0.5">verified</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Subscription Audit</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Detected two duplicate courier API subscriptions. Merge accounts to save ৳ 1,800/mo.</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-2.5 bg-secondary-container text-on-secondary-container font-label-md text-label-md rounded-xl hover:opacity-90 transition-all">
+                            View All Suggestions
+                        </button>
+</div>
+<!-- Category Proportions -->
+<div class="glass-card p-6 rounded-2xl border border-outline-variant">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-6">Spend by Category</h3>
+<div class="space-y-4">
+<div class="space-y-1.5">
+<div class="flex justify-between text-label-sm font-label-sm text-on-surface-variant">
+<span>Salaries</span>
+<span>৳ 85,000</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 35%"></div>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-label-sm font-label-sm text-on-surface-variant">
+<span>Marketing</span>
+<span>৳ 42,000</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 17%"></div>
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-label-sm font-label-sm text-on-surface-variant">
+<span>Rent &amp; Utilities</span>
+<span>৳ 1,07,400</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="bg-surface-tint h-full rounded-full" style="width: 44%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Expenses Table -->
+<div class="col-span-12 glass-card rounded-2xl border border-outline-variant overflow-hidden">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Recent Expenses</h3>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[20px]">sort</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Expense Details</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Category</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Type</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-semibold">SKU-8829 Stock Replenishment</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Auto-entry: Inventory Management</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="font-body-sm text-body-sm text-on-surface">Cost of Goods</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5 text-on-tertiary-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+                                            Automated
+                                        </div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-highest text-on-surface font-label-sm text-label-sm px-2.5 py-1 rounded-full">Cleared</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="font-headline-sm text-headline-sm text-on-surface">৳ 12,500</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">local_shipping</span>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-semibold">Pathao Delivery Commissions</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Auto-entry: Courier Integration</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="font-body-sm text-body-sm text-on-surface">Logistics</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5 text-on-tertiary-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+                                            Automated
+                                        </div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm px-2.5 py-1 rounded-full">Processing</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="font-headline-sm text-headline-sm text-on-surface">৳ 4,820</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">campaign</span>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-semibold">Facebook Ads - Q3 Campaign</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Vendor: Meta Platforms Inc.</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="font-body-sm text-body-sm text-on-surface">Marketing</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">person</span>
+                                            Manual
+                                        </div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-highest text-on-surface font-label-sm text-label-sm px-2.5 py-1 rounded-full">Cleared</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="font-headline-sm text-headline-sm text-on-surface">৳ 18,000</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+</div>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-semibold">Staff Overtime - August</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Approved by HR Manager</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="font-body-sm text-body-sm text-on-surface">Salaries</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">person</span>
+                                            Manual
+                                        </div>
+</td>
+<td class="px-6 py-4">
+<span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-2.5 py-1 rounded-full">Pending Approval</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="font-headline-sm text-headline-sm text-on-surface">৳ 9,400</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-surface-container-lowest flex justify-between items-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Showing 4 of 128 transactions</p>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 border border-outline-variant rounded-lg text-label-md font-label-md hover:bg-surface-container-low">Previous</button>
+<button class="px-3 py-1.5 border border-outline-variant rounded-lg text-label-md font-label-md hover:bg-surface-container-low">Next</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for rows
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', () => {
+                console.log('Row clicked - opening details...');
+            });
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('scale-[1.01]');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('scale-[1.01]');
+        });
+    </script>
+</body></html>

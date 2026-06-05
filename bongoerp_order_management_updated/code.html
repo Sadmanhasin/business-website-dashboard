@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BongoERP - Order Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Geist:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed": "#001a42",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#6ffbbe",
+                      "primary-container": "#131b2e",
+                      "secondary": "#0058be",
+                      "on-background": "#0b1c30",
+                      "on-error": "#ffffff",
+                      "outline-variant": "#c6c6cd",
+                      "inverse-primary": "#bec6e0",
+                      "tertiary-container": "#002113",
+                      "secondary-fixed-dim": "#adc6ff",
+                      "surface-container-high": "#dce9ff",
+                      "on-secondary-container": "#fefcff",
+                      "inverse-on-surface": "#eaf1ff",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "primary": "#000000",
+                      "surface-tint": "#565e74",
+                      "on-surface-variant": "#45464d",
+                      "background": "#f8f9ff",
+                      "tertiary": "#000000",
+                      "secondary-container": "#2170e4",
+                      "outline": "#76777d",
+                      "secondary-fixed": "#d8e2ff",
+                      "surface-variant": "#d3e4fe",
+                      "on-primary": "#ffffff",
+                      "surface-container": "#e5eeff",
+                      "on-secondary": "#ffffff",
+                      "inverse-surface": "#213145",
+                      "on-surface": "#0b1c30",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed": "#131b2e",
+                      "surface-bright": "#f8f9ff",
+                      "on-tertiary-container": "#009668",
+                      "surface-dim": "#cbdbf5",
+                      "surface": "#f8f9ff",
+                      "surface-container-low": "#eff4ff",
+                      "primary-fixed": "#dae2fd",
+                      "on-tertiary-fixed-variant": "#005236",
+                      "primary-fixed-dim": "#bec6e0",
+                      "on-secondary-fixed-variant": "#004395"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-padding-mobile": "16px",
+                      "stack-lg": "24px",
+                      "unit": "4px",
+                      "stack-md": "16px",
+                      "stack-sm": "8px",
+                      "gutter": "16px",
+                      "container-padding-desktop": "32px"
+              },
+              "fontFamily": {
+                      "headline-sm": ["Geist"],
+                      "headline-lg": ["Geist"],
+                      "headline-md": ["Geist"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Geist"],
+                      "label-sm": ["Geist"],
+                      "display-lg": ["Geist"],
+                      "body-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "currency-display": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "600"}],
+                      "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                      "currency-display": ["24px", {"lineHeight": "32px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        /* Mobile Stacked Card Logic */
+        @media (max-width: 1024px) {
+            .order-table thead { display: none; }
+            .order-table tbody tr {
+                display: flex;
+                flex-direction: column;
+                border-bottom: 8px solid #eff4ff;
+                padding: 1rem;
+            }
+            .order-table td {
+                padding: 0.5rem 0 !important;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .order-table td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: #45464d;
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            .order-table td[data-label="Actions"] {
+                justify-content: flex-end;
+                gap: 12px;
+            }
+        }
+        /* Drawer animation */
+        #order-drawer {
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #order-drawer.open {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-surface-container-lowest border-r border-outline-variant hidden lg:flex flex-col p-4 gap-2 z-50">
+<div class="mb-8 px-2 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary flex items-center justify-center rounded-lg shadow-lg">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">package_2</span>
+</div>
+<div>
+<h1 class="text-on-surface font-headline-lg text-headline-lg font-black tracking-tight leading-none">BongoERP</h1>
+<p class="text-on-surface-variant font-label-md text-label-md">Premium Merchant OS</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg font-bold active:scale-[0.98] shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span class="font-label-md text-label-md">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">inventory</span>
+<span class="font-label-md text-label-md">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-md text-label-md">Courier</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-md text-label-md">Marketing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Finance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-label-md text-label-md">Employees</span>
+</a>
+<div class="my-2 border-t border-outline-variant opacity-50 mx-2"></div>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-md text-label-md font-semibold text-secondary">AI Advisor</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 flex flex-col gap-1 border-t border-outline-variant">
+<button class="w-full bg-primary text-white py-3 rounded-xl font-headline-sm flex items-center justify-center gap-2 mb-4 hover:shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+            Add Order
+        </button>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Log Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Shell -->
+<main class="lg:ml-[280px] min-h-screen flex flex-col max-w-full overflow-hidden">
+<!-- TopNavBar -->
+<header class="h-16 px-6 bg-surface border-b border-outline-variant flex items-center justify-between sticky top-0 z-40">
+<div class="flex items-center flex-1 max-w-2xl">
+<!-- Global Search Bar (Order ID, Product, Customer) -->
+<div class="relative w-full focus-within:ring-2 focus-within:ring-secondary-container rounded-lg">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-lg font-body-md focus:ring-0" placeholder="Search Order ID, Product, or Customer..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4 ml-4">
+<button class="relative hover:bg-surface-container-low p-2 rounded-full transition-colors hidden sm:block">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant">
+<div class="text-right hidden sm:block">
+<p class="font-label-md text-on-surface leading-none">Mahmudur Rahman</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Super Admin</p>
+</div>
+<img alt="User Profile" class="w-10 h-10 rounded-full border-2 border-surface shadow-sm object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVOJB7U5Jbv9AgpmraaqobbFF2kSe2PTCu42oAf6bl4Ix51CCGNwE3HIq7ucC9dQnIh4JWxUzmRMiWSjav_MjqG0jShZq2hDGCQyrUZypcw24xddKJnQOKiBxqB660eD2MkrbfY71LGfPVVn3aRF2o4Hna9_6ergdi7RL2ql-ZOcpBTsRrw_aHVcqt7pxbz9wVACbfRyguLHoAf010sr05rlrCLK0dDZitTiiS6pxsF_XBL6M-5X192DUKyRxeXUIdbPxacnd2Nkkf"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="p-4 sm:p-8 max-w-[1600px] w-full mx-auto space-y-6 sm:space-y-8">
+<!-- Header & KPIs -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-surface mb-1">Order Management</h2>
+<p class="text-on-surface-variant font-body-lg">Real-time logistics and fulfillment orchestration.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:min-w-[600px]">
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+<p class="text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Delivery Success</p>
+<div class="flex items-center justify-between">
+<h3 class="font-headline-lg text-headline-lg">94%</h3>
+<span class="flex items-center text-emerald-600 font-label-md">
+<span class="material-symbols-outlined text-[16px]">trending_up</span> 1.2%
+                        </span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+<p class="text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Cancellation</p>
+<div class="flex items-center justify-between">
+<h3 class="font-headline-lg text-headline-lg">3.2%</h3>
+<span class="flex items-center text-rose-600 font-label-md">
+<span class="material-symbols-outlined text-[16px]">trending_up</span> 0.4%
+                        </span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-sm">
+<p class="text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Return Rate</p>
+<div class="flex items-center justify-between">
+<h3 class="font-headline-lg text-headline-lg">2.8%</h3>
+<span class="flex items-center text-emerald-600 font-label-md">
+<span class="material-symbols-outlined text-[16px]">trending_down</span> 0.5%
+                        </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Order Status Pipeline -->
+<div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl overflow-x-auto shadow-sm relative no-scrollbar">
+<div class="flex items-center justify-between mb-8 min-w-[800px]">
+<h4 class="font-headline-sm text-headline-sm">Operational Pipeline</h4>
+<!-- Pending Orders View Toggle -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-3 bg-surface-container-low p-1 rounded-lg">
+<button class="px-3 py-1 rounded-md text-label-sm font-bold bg-white shadow-sm transition-all">All Orders</button>
+<button class="px-3 py-1 rounded-md text-label-sm font-medium text-on-surface-variant hover:bg-white/50 transition-all flex items-center gap-1">
+                            Pending <span class="bg-error text-white text-[8px] px-1 rounded-full">24</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-secondary rounded-full animate-pulse"></span>
+<span class="text-label-md font-medium whitespace-nowrap">Auto-sync active</span>
+</div>
+</div>
+</div>
+<div class="relative flex justify-between items-start min-w-[900px] px-4 pb-4">
+<!-- Progress Line Background -->
+<div class="absolute top-[18px] left-[5%] right-[5%] h-[2px] bg-outline-variant z-0"></div>
+<!-- Active Progress Line -->
+<div class="absolute top-[18px] left-[5%] w-[45%] h-[2px] bg-secondary z-0"></div>
+<!-- Pipeline Steps -->
+<div class="relative z-10 flex flex-col items-center gap-3">
+<div class="w-9 h-9 bg-secondary text-white rounded-full flex items-center justify-center ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="text-center">
+<p class="text-label-md font-bold">New</p>
+<p class="text-[10px] text-on-surface-variant">24 Orders</p>
+</div>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-3">
+<div class="w-9 h-9 bg-secondary text-white rounded-full flex items-center justify-center ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="text-center">
+<p class="text-label-md font-bold">Confirmed</p>
+<p class="text-[10px] text-on-surface-variant">12 Orders</p>
+</div>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-3">
+<div class="w-9 h-9 bg-secondary text-white rounded-full flex items-center justify-center ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="text-center">
+<p class="text-label-md font-bold">Packed</p>
+<p class="text-[10px] text-on-surface-variant">45 Orders</p>
+</div>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-3">
+<div class="w-9 h-9 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center ring-4 ring-surface-container-lowest">
+<div class="w-3 h-3 bg-secondary rounded-full animate-ping"></div>
+</div>
+<div class="text-center">
+<p class="text-label-md font-bold text-secondary">Dispatched</p>
+<p class="text-[10px] text-on-surface-variant">08 Orders</p>
+</div>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-3 opacity-50">
+<div class="w-9 h-9 bg-surface-container-high text-on-surface-variant rounded-full flex items-center justify-center ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined text-[20px]">local_shipping</span>
+</div>
+<div class="text-center">
+<p class="text-label-md font-medium">In Transit</p>
+<p class="text-[10px] text-on-surface-variant">132 Orders</p>
+</div>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-3 opacity-50">
+<div class="w-9 h-9 bg-surface-container-high text-on-surface-variant rounded-full flex items-center justify-center ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined text-[20px]">task_alt</span>
+</div>
+<div class="text-center">
+<p class="text-label-md font-medium">Delivered</p>
+<p class="text-[10px] text-on-surface-variant">1,240 Orders</p>
+</div>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-3 opacity-50">
+<div class="w-9 h-9 bg-surface-container-high text-on-surface-variant rounded-full flex items-center justify-center ring-4 ring-surface-container-lowest">
+<span class="material-symbols-outlined text-[20px]">assignment_return</span>
+</div>
+<div class="text-center">
+<p class="text-label-md font-medium">Returned</p>
+<p class="text-[10px] text-on-surface-variant">14 Orders</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Advanced Table Area -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-sm flex flex-col overflow-hidden">
+<!-- Table Filters -->
+<div class="p-4 flex flex-wrap items-center justify-between gap-4 border-b border-outline-variant bg-surface-container-low/50">
+<div class="flex flex-wrap items-center gap-3 flex-1">
+<div class="relative w-full sm:max-w-[240px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">phone</span>
+<input class="w-full pl-9 pr-4 py-2 bg-white border border-outline-variant rounded-lg text-body-sm focus:ring-2 focus:ring-secondary-container" placeholder="Phone Search..." type="text"/>
+</div>
+<div class="relative hidden sm:block">
+<select class="pl-3 pr-8 py-2 bg-white border border-outline-variant rounded-lg text-body-sm appearance-none focus:ring-2 focus:ring-secondary-container">
+<option>All Couriers</option>
+<option>Steadfast</option>
+<option>Pathao</option>
+<option>Paperfly</option>
+<option>RedX</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+</div>
+<div class="relative hidden md:block">
+<button class="flex items-center gap-2 px-3 py-2 bg-white border border-outline-variant rounded-lg text-body-sm hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>Last 30 Days</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg text-body-sm font-semibold hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span class="hidden sm:inline">Export</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-body-sm font-semibold hover:shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+<span class="hidden sm:inline">Bulk Confirm</span>
+</button>
+</div>
+</div>
+<!-- Table Content (Updated Columns & Responsive) -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse order-table">
+<thead>
+<tr class="bg-surface-container-low/30 border-b border-outline-variant">
+<th class="p-4 w-12"><input class="rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"/></th>
+<th class="p-4 font-label-md text-label-md uppercase text-on-surface-variant tracking-wider">Order ID</th>
+<th class="p-4 font-label-md text-label-md uppercase text-on-surface-variant tracking-wider">Customer</th>
+<th class="p-4 font-label-md text-label-md uppercase text-on-surface-variant tracking-wider">Date</th>
+<th class="p-4 font-label-md text-label-md uppercase text-on-surface-variant tracking-wider">Payment</th>
+<th class="p-4 font-label-md text-label-md uppercase text-on-surface-variant tracking-wider">Status</th>
+<th class="p-4 font-label-md text-label-md uppercase text-on-surface-variant tracking-wider">Courier</th>
+<th class="p-4 font-label-md text-label-md uppercase text-on-surface-variant tracking-wider text-right">Value</th>
+<th class="p-4 font-label-md text-label-md uppercase text-on-surface-variant tracking-wider text-right">Profit</th>
+<th class="p-4 font-label-md text-label-md uppercase text-on-surface-variant tracking-wider text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4"><input class="rounded border-outline-variant text-secondary" type="checkbox"/></td>
+<td class="p-4" data-label="Order ID">
+<span class="font-headline-sm text-headline-sm text-on-surface">#12940</span>
+</td>
+<td class="p-4" data-label="Customer">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-primary font-bold text-[10px] hidden sm:flex">AI</div>
+<div>
+<p class="font-body-md text-on-surface font-semibold">Ariful Islam</p>
+<p class="text-[11px] text-on-surface-variant">+880 1712-345678</p>
+</div>
+</div>
+</td>
+<td class="p-4" data-label="Date">
+<p class="text-body-sm text-on-surface-variant">May 12, 2024</p>
+<p class="text-[10px] text-outline">10:24 AM</p>
+</td>
+<td class="p-4" data-label="Payment">
+<span class="text-body-sm font-medium px-2 py-0.5 rounded bg-emerald-50 text-emerald-700">COD</span>
+</td>
+<td class="p-4" data-label="Status">
+<span class="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-[11px] flex items-center gap-1 w-fit">
+<span class="material-symbols-outlined text-[14px]">local_shipping</span>
+                                    In Transit
+                                </span>
+</td>
+<td class="p-4" data-label="Courier">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-secondary rounded-full"></span>
+<span class="text-body-md">Steadfast</span>
+</div>
+</td>
+<td class="p-4 text-right font-headline-sm" data-label="Value">৳1,250</td>
+<td class="p-4 text-right font-headline-sm text-emerald-600" data-label="Profit">৳450</td>
+<td class="p-4 text-center" data-label="Actions">
+<div class="flex items-center justify-center gap-3">
+<button class="p-1.5 hover:bg-surface-container-high rounded-full transition-all text-on-surface-variant hover:text-secondary open-drawer" title="View Details">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container-high rounded-full transition-all text-on-surface-variant hover:text-primary" title="Edit Order">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4"><input class="rounded border-outline-variant text-secondary" type="checkbox"/></td>
+<td class="p-4" data-label="Order ID"><span class="font-headline-sm">#12941</span></td>
+<td class="p-4" data-label="Customer">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-[10px] hidden sm:flex">TA</div>
+<div><p class="font-body-md font-semibold">Tasnim Ahmed</p><p class="text-[11px]">+880 1812-445566</p></div>
+</div>
+</td>
+<td class="p-4" data-label="Date"><p class="text-body-sm">May 12, 2024</p></td>
+<td class="p-4" data-label="Payment"><span class="text-body-sm px-2 py-0.5 rounded bg-blue-50 text-blue-700">Prepaid</span></td>
+<td class="p-4" data-label="Status">
+<span class="px-2.5 py-1 rounded-full bg-surface-container-highest text-on-surface text-[11px] flex items-center gap-1 w-fit">
+<span class="material-symbols-outlined text-[14px]">inventory_2</span> Packed
+                                </span>
+</td>
+<td class="p-4" data-label="Courier"><span class="text-body-md">Pathao</span></td>
+<td class="p-4 text-right font-headline-sm" data-label="Value">৳4,800</td>
+<td class="p-4 text-right font-headline-sm text-emerald-600" data-label="Profit">৳1,120</td>
+<td class="p-4 text-center" data-label="Actions">
+<div class="flex items-center justify-center gap-3">
+<button class="p-1.5 hover:bg-surface-container-high rounded-full transition-all text-on-surface-variant hover:text-secondary open-drawer"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-1.5 hover:bg-surface-container-high rounded-full transition-all text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4"><input class="rounded border-outline-variant text-secondary" type="checkbox"/></td>
+<td class="p-4" data-label="Order ID"><span class="font-headline-sm">#12942</span></td>
+<td class="p-4" data-label="Customer">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-bold text-[10px] hidden sm:flex">MR</div>
+<div><p class="font-body-md font-semibold">Moshiur Rahman</p><p class="text-[11px]">+880 1612-998877</p></div>
+</div>
+</td>
+<td class="p-4" data-label="Date"><p class="text-body-sm">May 11, 2024</p></td>
+<td class="p-4" data-label="Payment"><span class="text-body-sm px-2 py-0.5 rounded bg-emerald-50 text-emerald-700">COD</span></td>
+<td class="p-4" data-label="Status">
+<span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] flex items-center gap-1 w-fit">
+<span class="material-symbols-outlined text-[14px]">task_alt</span> Delivered
+                                </span>
+</td>
+<td class="p-4" data-label="Courier"><span class="text-body-md">RedX</span></td>
+<td class="p-4 text-right font-headline-sm" data-label="Value">৳750</td>
+<td class="p-4 text-right font-headline-sm text-emerald-600" data-label="Profit">৳210</td>
+<td class="p-4 text-center" data-label="Actions">
+<div class="flex items-center justify-center gap-3">
+<button class="p-1.5 hover:bg-surface-container-high rounded-full transition-all text-on-surface-variant hover:text-secondary open-drawer"><span class="material-symbols-outlined text-[20px]">visibility</span></button>
+<button class="p-1.5 hover:bg-surface-container-high rounded-full transition-all text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[20px]">edit</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination System (Showing 10 of X) -->
+<div class="p-4 border-t border-outline-variant flex flex-col sm:flex-row items-center justify-between gap-4">
+<p class="text-label-md text-on-surface-variant">Showing <span class="font-bold">10</span> of <span class="font-bold text-on-surface">1,248</span> orders</p>
+<div class="flex items-center gap-2">
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<div class="flex items-center gap-1">
+<button class="w-9 h-9 bg-secondary text-white rounded-lg text-label-md shadow-sm">1</button>
+<button class="w-9 h-9 hover:bg-surface-container-low rounded-lg text-label-md transition-colors">2</button>
+<button class="w-9 h-9 hover:bg-surface-container-low rounded-lg text-label-md transition-colors hidden sm:block">3</button>
+<span class="px-2">...</span>
+<button class="w-9 h-9 hover:bg-surface-container-low rounded-lg text-label-md transition-colors">125</button>
+</div>
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bento Widgets -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 glass-card border border-outline-variant rounded-2xl p-6 shadow-sm overflow-hidden relative">
+<div class="relative z-10">
+<div class="flex items-center justify-between mb-6">
+<h5 class="font-headline-sm">Logistics Efficiency</h5>
+<button class="text-secondary font-label-md hover:underline">View heatmaps</button>
+</div>
+<div class="h-48 flex items-end justify-between gap-2 px-2">
+<div class="flex-1 bg-secondary/10 rounded-t-lg relative group h-[40%]">
+<div class="absolute bottom-0 left-0 right-0 bg-secondary rounded-t-lg h-[65%] group-hover:h-[75%] transition-all"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] uppercase font-bold text-on-surface-variant">Sun</span>
+</div>
+<div class="flex-1 bg-secondary/10 rounded-t-lg relative group h-[60%]">
+<div class="absolute bottom-0 left-0 right-0 bg-secondary rounded-t-lg h-[80%] group-hover:h-[90%] transition-all"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] uppercase font-bold text-on-surface-variant">Mon</span>
+</div>
+<div class="flex-1 bg-secondary/10 rounded-t-lg relative group h-[85%]">
+<div class="absolute bottom-0 left-0 right-0 bg-secondary rounded-t-lg h-[95%] group-hover:h-[100%] transition-all"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] uppercase font-bold text-on-surface-variant">Wed</span>
+</div>
+<div class="flex-1 bg-secondary/10 rounded-t-lg relative group h-[95%]">
+<div class="absolute bottom-0 left-0 right-0 bg-secondary rounded-t-lg h-[90%] group-hover:h-[100%] transition-all"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] uppercase font-bold text-on-surface-variant">Fri</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-primary text-white rounded-2xl p-6 shadow-xl relative overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary opacity-20 blur-3xl -mr-16 -mt-16"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4 text-secondary-fixed">
+<span class="material-symbols-outlined animate-pulse">auto_awesome</span>
+<span class="font-label-md tracking-widest uppercase">AI Insight</span>
+</div>
+<h6 class="font-headline-md mb-2 leading-tight">Courier Optimization</h6>
+<p class="text-body-sm opacity-80 mb-6">Steadfast is delivering 12% faster in Chittagong. Re-route pending orders now.</p>
+</div>
+<button class="relative z-10 w-full py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl font-label-md transition-all active:scale-[0.98]">
+                    Apply Optimization
+                </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Detailed Order Drawer (Simulated) -->
+<div class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100] hidden opacity-0 transition-opacity duration-300" id="drawer-overlay"></div>
+<aside class="fixed right-0 top-0 h-full w-full sm:w-[450px] bg-surface-container-lowest shadow-2xl z-[101] border-l border-outline-variant flex flex-col" id="order-drawer">
+<div class="p-6 border-b border-outline-variant flex items-center justify-between">
+<div>
+<h3 class="font-headline-lg text-headline-lg" id="drawer-title">Order #12940</h3>
+<p class="text-label-md text-on-surface-variant">Placed on May 12, 10:24 AM</p>
+</div>
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors" id="close-drawer">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-6 space-y-8">
+<!-- Customer Info -->
+<section>
+<h4 class="font-label-md uppercase tracking-wider text-on-surface-variant mb-4">Customer Details</h4>
+<div class="bg-surface-container-low p-4 rounded-xl space-y-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold">AI</div>
+<div>
+<p class="font-body-md font-bold">Ariful Islam</p>
+<p class="text-body-sm text-on-surface-variant">ariful.islam@email.com</p>
+</div>
+</div>
+<p class="text-body-sm"><span class="font-semibold">Phone:</span> +880 1712-345678</p>
+<p class="text-body-sm"><span class="font-semibold">Address:</span> House 45, Road 12, Sector 07, Uttara, Dhaka</p>
+</div>
+</section>
+<!-- Order Items -->
+<section>
+<h4 class="font-label-md uppercase tracking-wider text-on-surface-variant mb-4">Items (2)</h4>
+<div class="space-y-4">
+<div class="flex gap-4">
+<div class="w-16 h-16 bg-surface-container-high rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">image</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md font-semibold">Premium Cotton Polo T-Shirt</p>
+<p class="text-body-sm text-on-surface-variant">Size: L | Color: Navy</p>
+<div class="flex justify-between items-center mt-1">
+<p class="text-body-sm font-medium">Qty: 1</p>
+<p class="font-headline-sm">৳850</p>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-16 h-16 bg-surface-container-high rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">image</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md font-semibold">Casual Twill Chino Pants</p>
+<p class="text-body-sm text-on-surface-variant">Size: 32 | Color: Khaki</p>
+<div class="flex justify-between items-center mt-1">
+<p class="text-body-sm font-medium">Qty: 1</p>
+<p class="font-headline-sm">৳400</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Summary -->
+<section class="border-t border-outline-variant pt-6 space-y-2">
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Subtotal</span>
+<span>৳1,250</span>
+</div>
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Shipping Fee</span>
+<span>৳60</span>
+</div>
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Discount</span>
+<span class="text-error">-৳60</span>
+</div>
+<div class="flex justify-between items-center pt-2 border-t border-outline-variant/50">
+<span class="font-headline-sm">Total Amount</span>
+<span class="font-headline-lg text-secondary">৳1,250</span>
+</div>
+</section>
+</div>
+<div class="p-6 border-t border-outline-variant bg-surface-container-low flex gap-3">
+<button class="flex-1 py-3 bg-secondary text-white rounded-xl font-headline-sm shadow-md hover:bg-secondary-container transition-all">Download Invoice</button>
+<button class="p-3 border border-outline-variant rounded-xl hover:bg-surface-container-lowest transition-all">
+<span class="material-symbols-outlined">print</span>
+</button>
+</div>
+</aside>
+<script>
+    const drawer = document.getElementById('order-drawer');
+    const overlay = document.getElementById('drawer-overlay');
+    const closeBtn = document.getElementById('close-drawer');
+    const openBtns = document.querySelectorAll('.open-drawer');
+
+    function openDrawer(orderId) {
+        document.getElementById('drawer-title').innerText = `Order ${orderId}`;
+        overlay.classList.remove('hidden');
+        setTimeout(() => {
+            overlay.classList.add('opacity-100');
+            drawer.classList.add('open');
+        }, 10);
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+        overlay.classList.remove('opacity-100');
+        drawer.classList.remove('open');
+        setTimeout(() => {
+            overlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 300);
+    }
+
+    openBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const row = e.target.closest('tr');
+            const orderId = row.querySelector('[data-label="Order ID"]').innerText;
+            openDrawer(orderId);
+        });
+    });
+
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+
+    // Row selection logic
+    document.querySelectorAll('.order-table tbody tr').forEach(row => {
+        row.addEventListener('click', (e) => {
+            if (!e.target.closest('button') && e.target.type !== 'checkbox') {
+                const checkbox = row.querySelector('input[type="checkbox"]');
+                checkbox.checked = !checkbox.checked;
+                row.classList.toggle('bg-secondary/5', checkbox.checked);
+            }
+        });
+    });
+</script>
+</body></html>
