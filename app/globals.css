@@ -1,0 +1,108 @@
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid #E2E8F0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8f9ff;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.action-tile-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.action-tile-hover:hover {
+  transform: translateY(-4px);
+}
+
+/* Orders drawer */
+#order-drawer {
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#order-drawer.open {
+  transform: translateX(0);
+}
+
+/* Order table responsive */
+@media (max-width: 1024px) {
+  .order-table thead { display: none; }
+  .order-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 8px solid #eff4ff;
+    padding: 1rem;
+  }
+  .order-table td {
+    padding: 0.5rem 0 !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .order-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #45464d;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .order-table td[data-label="Actions"] {
+    justify-content: flex-end;
+    gap: 12px;
+  }
+}
+
+/* Courier active tab */
+.active-tab {
+  border-bottom: 2px solid #0058be;
+  color: #0058be;
+}
+
+/* AI Advisor */
+.ai-gradient {
+  background: linear-gradient(135deg, #f0f7ff 0%, #e0eaff 50%, #f5f3ff 100%);
+}
+
+.ai-glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.bento-card {
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.bento-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Settings nav active */
+.settings-nav-active {
+  background-color: #eff4ff;
+  color: #0058be;
+  font-weight: 700;
+}
