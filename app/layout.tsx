@@ -116,9 +116,9 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
           rel="stylesheet"
         />
-        <script dangerouslySetInnerHTML={{ __html: tailwindConfig }} />
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries" />
+        <script dangerouslySetInnerHTML={{ __html: tailwindConfig }} />
       </head>
       <body className="bg-background text-on-surface antialiased overflow-hidden">
         {children}

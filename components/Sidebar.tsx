@@ -14,13 +14,13 @@ const navItems = [
   { href: '/finance', icon: 'payments', label: 'Finance' },
   { href: '/employees', icon: 'badge', label: 'Employees' },
   { href: '/ai-advisor', icon: 'auto_awesome', label: 'AI Advisor', fill: true },
+  { href: '/settings', icon: 'settings', label: 'Settings' },
 ]
 
 const activeRouteMap: Record<string, string> = {
   '/expenses': '/finance',
   '/merchant': '/',
   '/reporting': '/ai-advisor',
-  '/settings': '/settings',
 }
 
 interface SidebarProps {
@@ -63,10 +63,10 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                 key={item.href}
                 href={item.href}
                 onClick={onClose}
-                className={`flex items-center gap-3 px-4 py-2 rounded-lg font-bold active:scale-[0.98] transition-all ${
+                className={`flex items-center gap-3 px-4 py-2 rounded-lg active:scale-[0.98] ${
                   active
-                    ? 'bg-secondary-container text-on-secondary-container'
-                    : 'text-on-surface-variant hover:bg-surface-container-low'
+                    ? 'bg-secondary-container text-on-secondary-container font-bold transition-all'
+                    : 'text-on-surface-variant hover:bg-surface-container-low transition-colors'
                 }`}
               >
                 <span
@@ -79,33 +79,6 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
               </Link>
             )
           })}
-
-          {/* Extra pages not in main nav shown as sub-links */}
-          <div className="mt-2 pt-2 border-t border-outline-variant flex flex-col gap-1">
-            {[
-              { href: '/expenses', icon: 'receipt_long', label: 'Expenses' },
-              { href: '/merchant', icon: 'storefront', label: 'Merchant OS' },
-              { href: '/reporting', icon: 'bar_chart', label: 'Reporting' },
-              { href: '/settings', icon: 'settings', label: 'Settings' },
-            ].map((item) => {
-              const active = pathname === item.href
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={onClose}
-                  className={`flex items-center gap-3 px-4 py-2 rounded-lg active:scale-[0.98] transition-all ${
-                    active
-                      ? 'bg-secondary-container text-on-secondary-container font-bold'
-                      : 'text-on-surface-variant hover:bg-surface-container-low'
-                  }`}
-                >
-                  <span className="material-symbols-outlined">{item.icon}</span>
-                  <span className="font-label-md text-label-md">{item.label}</span>
-                </Link>
-              )
-            })}
-          </div>
         </nav>
 
         {/* Footer */}
